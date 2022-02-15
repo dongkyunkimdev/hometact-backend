@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import kdk.hometact.BaseTimeEntity;
@@ -41,6 +42,9 @@ public class Post extends BaseTimeEntity {
 	@Size(max = 500)
 	private String content;
 
+	@Column(name = "view")
+	private Long view;
+
 	@Builder
 	public Post(Long postId, User user,
 		@Size(max = 100) String title,
@@ -54,5 +58,10 @@ public class Post extends BaseTimeEntity {
 	public void update(PostDto postDto) {
 		this.title = postDto.getTitle();
 		this.content = postDto.getContent();
+	}
+
+	@PrePersist
+	private void initView() {
+		this.view = this.view == null ? 0 : this.view;
 	}
 }

@@ -191,5 +191,6 @@ class PostRepositoryTest {
 		assertThat(post.getUser()).isEqualTo(result.getUser());
 		assertThat(post.getCreatedDate()).isEqualTo(result.getCreatedDate());
 		assertThat(post.getModifiedDate()).isEqualTo(result.getModifiedDate());
+		assertThat(0L).isEqualTo(result.getView());
 	}
 }
