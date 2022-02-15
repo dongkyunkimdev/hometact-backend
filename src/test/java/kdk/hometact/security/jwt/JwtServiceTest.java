@@ -12,14 +12,14 @@ import kdk.hometact.user.dto.UserDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 
-@DataJpaTest
-@ComponentScan(basePackages = "kdk.hometact.security, kdk.hometact.user")
+@SpringBootTest
+@Transactional
 class JwtServiceTest {
 
 	@Autowired
