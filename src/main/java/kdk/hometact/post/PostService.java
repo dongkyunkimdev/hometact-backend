@@ -96,4 +96,12 @@ public class PostService {
 		}
 		throw new AccessDeniedException(ErrorCode.HANDLE_ACCESS_DENIED.getMessage());
 	}
+
+	@Transactional
+	public void addViewCnt(Long postId) {
+		Post post = postRepository.findById(postId).orElseThrow(
+			() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage())
+		);
+		post.addViewCnt();
+	}
 }

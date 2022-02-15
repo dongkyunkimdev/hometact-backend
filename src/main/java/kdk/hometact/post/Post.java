@@ -67,6 +67,10 @@ public class Post extends BaseTimeEntity {
 		this.content = postDto.getContent();
 	}
 
+	public void addViewCnt() {
+		this.view++;
+	}
+
 	@PrePersist
 	private void initView() {
 		this.view = this.view == null ? 0 : this.view;

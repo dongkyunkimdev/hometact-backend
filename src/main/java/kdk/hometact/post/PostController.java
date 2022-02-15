@@ -41,6 +41,7 @@ public class PostController {
 
 	@GetMapping("/{postId}")
 	public ResponseEntity<PostDto> selectPost(@PathVariable Long postId) {
+		postService.addViewCnt(postId);
 		return ResponseEntity.ok().body(postService.selectPost(postId));
 	}
 
