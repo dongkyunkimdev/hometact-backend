@@ -3,6 +3,7 @@ package kdk.hometact.comment;
 import java.util.List;
 import java.util.stream.Collectors;
 import kdk.hometact.comment.dto.CommentDto;
+import kdk.hometact.comment.dto.UpdateCommentDto;
 import kdk.hometact.error.ErrorCode;
 import kdk.hometact.error.exception.EntityNotFoundException;
 import kdk.hometact.post.Post;
@@ -72,7 +73,7 @@ public class CommentService {
 	}
 
 	@Transactional
-	public CommentDto updateComment(Long commentId, CommentDto commentDto) {
+	public CommentDto updateComment(Long commentId, UpdateCommentDto updateCommentDto) {
 		Comment comment = commentRepository.findById(commentId).orElseThrow(
 			() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage())
 		);
@@ -80,7 +81,7 @@ public class CommentService {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
 			.getAuthentication().getPrincipal();
 		if (validAuthority(comment, userDetails)) {
-			comment.update(commentDto);
+			comment.update(updateCommentDto);
 		}
 
 		return CommentDto.from(comment);

@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import kdk.hometact.BaseTimeEntity;
-import kdk.hometact.comment.dto.CommentDto;
+import kdk.hometact.comment.dto.UpdateCommentDto;
 import kdk.hometact.post.Post;
 import kdk.hometact.user.User;
 import lombok.AccessLevel;
@@ -51,8 +51,8 @@ public class Comment extends BaseTimeEntity {
 		this.content = content;
 	}
 
-	public void update(CommentDto commentDto) {
-		this.content = commentDto.getContent();
+	public void update(UpdateCommentDto updateCommentDto) {
+		this.content = updateCommentDto.getContent();
 	}
 
 }

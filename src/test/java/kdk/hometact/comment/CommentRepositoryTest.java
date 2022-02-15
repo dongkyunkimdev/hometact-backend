@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Collections;
 import java.util.List;
-import kdk.hometact.comment.dto.CommentDto;
+import kdk.hometact.comment.dto.UpdateCommentDto;
 import kdk.hometact.error.ErrorCode;
 import kdk.hometact.error.exception.EntityNotFoundException;
 import kdk.hometact.post.Post;
@@ -130,8 +130,8 @@ class CommentRepositoryTest {
 
 		// when
 		String updateComment = "updateComment";
-		CommentDto commentDto = createCommentDto(updateComment);
-		comment.update(commentDto);
+		UpdateCommentDto updateCommentDto = createUpdateCommentDto(updateComment);
+		comment.update(updateCommentDto);
 
 		// then
 		assertThat(updateComment).isEqualTo(comment.getContent());
@@ -202,8 +202,8 @@ class CommentRepositoryTest {
 			.build();
 	}
 
-	private CommentDto createCommentDto(String updateComment) {
-		return CommentDto.builder()
+	private UpdateCommentDto createUpdateCommentDto(String updateComment) {
+		return UpdateCommentDto.builder()
 			.content(updateComment)
 			.build();
 	}

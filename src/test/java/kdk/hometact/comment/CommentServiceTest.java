@@ -12,6 +12,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import kdk.hometact.comment.dto.CommentDto;
+import kdk.hometact.comment.dto.UpdateCommentDto;
 import kdk.hometact.error.ErrorCode;
 import kdk.hometact.error.exception.EntityNotFoundException;
 import kdk.hometact.post.Post;
@@ -216,7 +217,7 @@ class CommentServiceTest {
 
 		// when
 		CommentDto result = commentService
-			.updateComment(1L, createCommentDto(updateCommentContent));
+			.updateComment(1L, createUpdateCommentDto(updateCommentContent));
 
 		// then
 		assertThat(result.getContent()).isEqualTo(updateCommentContent);
@@ -248,7 +249,7 @@ class CommentServiceTest {
 
 		// when
 		CommentDto result = commentService
-			.updateComment(1L, createCommentDto(updateCommentContent));
+			.updateComment(1L, createUpdateCommentDto(updateCommentContent));
 
 		// then
 		assertThat(result.getContent()).isEqualTo(updateCommentContent);
@@ -262,7 +263,7 @@ class CommentServiceTest {
 
 		// when
 		EntityNotFoundException e = assertThrows(EntityNotFoundException.class,
-			() -> commentService.updateComment(1L, createCommentDto(commentContent))
+			() -> commentService.updateComment(1L, createUpdateCommentDto(commentContent))
 		);
 
 		// then
@@ -295,7 +296,7 @@ class CommentServiceTest {
 
 		// when
 		AccessDeniedException e = assertThrows(AccessDeniedException.class,
-			() -> commentService.updateComment(1L, createCommentDto(updateCommentContent))
+			() -> commentService.updateComment(1L, createUpdateCommentDto(updateCommentContent))
 		);
 
 		// then
@@ -412,6 +413,12 @@ class CommentServiceTest {
 
 	private CommentDto createCommentDto(String updateComment) {
 		return CommentDto.builder()
+			.content(updateComment)
+			.build();
+	}
+
+	private UpdateCommentDto createUpdateCommentDto(String updateComment) {
+		return UpdateCommentDto.builder()
 			.content(updateComment)
 			.build();
 	}
