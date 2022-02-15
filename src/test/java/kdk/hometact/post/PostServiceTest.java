@@ -80,14 +80,12 @@ class PostServiceTest {
 	void 게시글_업로드_예외_사용자가_없음() {
 		// given
 		MockedStatic<SecurityUtil> mockSecurityUtil = mockStatic(SecurityUtil.class);
-		User user = mock(User.class);
 		String email = "test1@test.com";
 		String title = "title";
 		String content = "content";
 		given(SecurityUtil.getCurrentUsername()).willReturn(Optional.ofNullable(email));
-		given(userRepository.findOneWithAuthoritiesByEmail(email)).willThrow(
-			new UsernameNotFoundException(ErrorCode.USER_NOT_FOUND.getMessage())
-		);
+		given(userRepository.findOneWithAuthoritiesByEmail(email))
+			.willReturn(Optional.ofNullable(null));
 
 		// when
 		UsernameNotFoundException e = assertThrows(UsernameNotFoundException.class,
@@ -148,9 +146,7 @@ class PostServiceTest {
 	@Test
 	void 게시글_조회_예외_게시글이_없음() {
 		// given
-		given(postRepository.findById(any())).willThrow(
-			new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage())
-		);
+		given(postRepository.findById(any())).willReturn(Optional.ofNullable(null));
 
 		// when
 		EntityNotFoundException e = assertThrows(EntityNotFoundException.class,
@@ -180,7 +176,8 @@ class PostServiceTest {
 		given(securityContext.getAuthentication()).willReturn(authentication);
 		given(authentication.getPrincipal()).willReturn(userDetails);
 		given(userDetails.getUsername()).willReturn(email);
-		given(userDetails.getAuthorities()).willReturn(Collections.emptySet());
+		doReturn(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))).when(userDetails)
+			.getAuthorities();
 		SecurityContextHolder.setContext(securityContext);
 
 		// when
@@ -218,9 +215,7 @@ class PostServiceTest {
 	@Test
 	void 게시글_삭제_예외_게시글이_없음() {
 		// given
-		given(postRepository.findById(any())).willThrow(
-			new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage())
-		);
+		given(postRepository.findById(any())).willReturn(Optional.ofNullable(null));
 
 		// when
 		EntityNotFoundException e = assertThrows(EntityNotFoundException.class,
@@ -250,7 +245,8 @@ class PostServiceTest {
 		given(securityContext.getAuthentication()).willReturn(authentication);
 		given(authentication.getPrincipal()).willReturn(userDetails);
 		given(userDetails.getUsername()).willReturn(unmatchedEmail);
-		given(userDetails.getAuthorities()).willReturn(Collections.emptySet());
+		doReturn(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))).when(userDetails)
+			.getAuthorities();
 		SecurityContextHolder.setContext(securityContext);
 
 		// when
@@ -282,7 +278,8 @@ class PostServiceTest {
 		given(securityContext.getAuthentication()).willReturn(authentication);
 		given(authentication.getPrincipal()).willReturn(userDetails);
 		given(userDetails.getUsername()).willReturn(email);
-		given(userDetails.getAuthorities()).willReturn(Collections.emptySet());
+		doReturn(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))).when(userDetails)
+			.getAuthorities();
 		SecurityContextHolder.setContext(securityContext);
 
 		// when
@@ -331,9 +328,7 @@ class PostServiceTest {
 	@Test
 	void 게시글_수정_예외_게시글이_없음() {
 		// given
-		given(postRepository.findById(any())).willThrow(
-			new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage())
-		);
+		given(postRepository.findById(any())).willReturn(Optional.ofNullable(null));
 
 		// when
 		EntityNotFoundException e = assertThrows(EntityNotFoundException.class,
@@ -363,7 +358,8 @@ class PostServiceTest {
 		given(securityContext.getAuthentication()).willReturn(authentication);
 		given(authentication.getPrincipal()).willReturn(userDetails);
 		given(userDetails.getUsername()).willReturn(unmatchedEmail);
-		given(userDetails.getAuthorities()).willReturn(Collections.emptySet());
+		doReturn(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"))).when(userDetails)
+			.getAuthorities();
 		SecurityContextHolder.setContext(securityContext);
 
 		// when

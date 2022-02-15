@@ -188,7 +188,7 @@ class PostControllerTest {
 	}
 
 	@Test
-	void 게시글_조회_예외_게시글이_없음() throws Exception {
+	void 게시글_조회_예외_게시글이_없음() {
 		// given
 		given(postService.selectPost(any())).willThrow(
 			new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage())
