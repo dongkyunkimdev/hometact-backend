@@ -29,7 +29,10 @@ public enum ErrorCode {
 	UNKNOWN_TOKEN(401, "A005", "알 수 없는 오류입니다"),
 
 	// Login
-	INVALID_ACCOUNT(400, "L001", "계정 정보가 일치하지 않습니다.");
+	INVALID_ACCOUNT(400, "L001", "계정 정보가 일치하지 않습니다."),
+
+	// PostLike
+	POSTLIKE_DUPLICATION(400, "PL001", "이미 좋아요를 누른 게시글입니다");
 
 	private int status;
 	private final String code;

@@ -17,6 +17,7 @@ import javax.validation.constraints.Size;
 import kdk.hometact.BaseTimeEntity;
 import kdk.hometact.comment.Comment;
 import kdk.hometact.post.dto.PostDto;
+import kdk.hometact.postlike.PostLike;
 import kdk.hometact.user.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -51,6 +52,9 @@ public class Post extends BaseTimeEntity {
 
 	@OneToMany(mappedBy = "post")
 	List<Comment> comments = new ArrayList<>();
+
+	@OneToMany(mappedBy = "post")
+	List<PostLike> postLikes = new ArrayList<>();
 
 	@Builder
 	public Post(Long postId, User user,

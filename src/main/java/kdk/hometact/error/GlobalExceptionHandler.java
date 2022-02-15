@@ -2,6 +2,7 @@ package kdk.hometact.error;
 
 import kdk.hometact.error.exception.BusinessException;
 import kdk.hometact.error.exception.EntityNotFoundException;
+import kdk.hometact.postlike.exception.PostLikeAlreadyAddException;
 import kdk.hometact.security.jwt.exception.InvalidTokenException;
 import kdk.hometact.user.exception.EmailAlreadyUseException;
 import lombok.extern.log4j.Log4j2;
@@ -169,5 +170,16 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(response,
 			HttpStatus.valueOf(ErrorCode.INVALID_ACCOUNT.getStatus()));
 	}
+
+	// PostLike
+	@ExceptionHandler(PostLikeAlreadyAddException.class)
+	protected ResponseEntity<ErrorResponse> handlePostLikeAlreadyAddException(
+		PostLikeAlreadyAddException e) {
+		log.error("handlePostLikeAlreadyAddException", e);
+		final ErrorResponse response = ErrorResponse.of(ErrorCode.POSTLIKE_DUPLICATION);
+		return new ResponseEntity<>(response,
+			HttpStatus.valueOf(ErrorCode.POSTLIKE_DUPLICATION.getStatus()));
+	}
+
 
 }
