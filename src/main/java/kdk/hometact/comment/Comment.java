@@ -1,7 +1,5 @@
-package kdk.hometact.post;
+package kdk.hometact.comment;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,13 +8,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import kdk.hometact.BaseTimeEntity;
-import kdk.hometact.comment.Comment;
-import kdk.hometact.post.dto.PostDto;
+import kdk.hometact.comment.dto.CommentDto;
+import kdk.hometact.post.Post;
 import kdk.hometact.user.User;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -24,51 +20,39 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "post")
+@Table(name = "comment")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Post extends BaseTimeEntity {
+public class Comment extends BaseTimeEntity {
 
 	@Id
-	@Column(name = "post_id")
+	@Column(name = "comment_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long postId;
+	private Long commentId;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "post_id")
+	private Post post;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@Column(name = "title", nullable = false)
-	@Size(max = 100)
-	private String title;
-
 	@Column(name = "content", nullable = false)
 	@Size(max = 500)
 	private String content;
 
-	@Column(name = "view")
-	private Long view;
-
-	@OneToMany(mappedBy = "post")
-	List<Comment> comments = new ArrayList<>();
-
 	@Builder
-	public Post(Long postId, User user,
-		@Size(max = 100) String title,
+	public Comment(Long commentId, Post post, User user,
 		@Size(max = 500) String content) {
-		this.postId = postId;
+		this.commentId = commentId;
+		this.post = post;
 		this.user = user;
-		this.title = title;
 		this.content = content;
 	}
 
-	public void update(PostDto postDto) {
-		this.title = postDto.getTitle();
-		this.content = postDto.getContent();
+	public void update(CommentDto commentDto) {
+		this.content = commentDto.getContent();
 	}
 
-	@PrePersist
-	private void initView() {
-		this.view = this.view == null ? 0 : this.view;
-	}
 }

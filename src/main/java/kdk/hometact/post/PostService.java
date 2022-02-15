@@ -60,19 +60,6 @@ public class PostService {
 	}
 
 	@Transactional
-	public void deletePost(Long postId) {
-		Post post = postRepository.findById(postId).orElseThrow(
-			() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage())
-		);
-
-		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
-			.getAuthentication().getPrincipal();
-		if (validAuthority(post, userDetails)) {
-			postRepository.delete(post);
-		}
-	}
-
-	@Transactional
 	public PostDto updatePost(Long postId, PostDto postDto) {
 		Post post = postRepository.findById(postId).orElseThrow(
 			() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage())
@@ -85,6 +72,19 @@ public class PostService {
 		}
 
 		return PostDto.from(post);
+	}
+
+	@Transactional
+	public void deletePost(Long postId) {
+		Post post = postRepository.findById(postId).orElseThrow(
+			() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage())
+		);
+
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+			.getAuthentication().getPrincipal();
+		if (validAuthority(post, userDetails)) {
+			postRepository.delete(post);
+		}
 	}
 
 	private boolean validAuthority(Post post, UserDetails userDetails) {
