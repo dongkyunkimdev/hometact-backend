@@ -34,6 +34,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 class PostServiceTest {
 
@@ -70,6 +71,31 @@ class PostServiceTest {
 		// then
 		assertThat(result.getTitle()).isEqualTo(title);
 		assertThat(result.getContent()).isEqualTo(content);
+
+		// end
+		mockSecurityUtil.close();
+	}
+
+	@Test
+	void 게시글_업로드_예외_사용자가_없음() {
+		// given
+		MockedStatic<SecurityUtil> mockSecurityUtil = mockStatic(SecurityUtil.class);
+		User user = mock(User.class);
+		String email = "test1@test.com";
+		String title = "title";
+		String content = "content";
+		given(SecurityUtil.getCurrentUsername()).willReturn(Optional.ofNullable(email));
+		given(userRepository.findOneWithAuthoritiesByEmail(email)).willThrow(
+			new UsernameNotFoundException(ErrorCode.USER_NOT_FOUND.getMessage())
+		);
+
+		// when
+		UsernameNotFoundException e = assertThrows(UsernameNotFoundException.class,
+			() -> postService.uploadPost(createPostDto(title, content))
+		);
+
+		// then
+		assertThat(e.getMessage()).isEqualTo(ErrorCode.USER_NOT_FOUND.getMessage());
 
 		// end
 		mockSecurityUtil.close();
