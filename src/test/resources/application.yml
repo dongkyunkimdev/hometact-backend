@@ -1,24 +1,24 @@
 spring:
 
   datasource:
-    url: jdbc:mariadb://192.168.0.2:3306/hometact
-    driver-class-name: org.mariadb.jdbc.Driver
-    username: hometact
-    password: kdk0490
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
-      ddl-auto: none
-    generate-ddl: false
+      ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: true
         show_sql: true
+    defer-datasource-initialization: true
 
 logging:
   level:
-    kdk: INFO
+    kdk: DEBUG
 
 jwt:
   header: Authorization
