@@ -46,8 +46,8 @@ public class JwtFilter extends OncePerRequestFilter {
 	}
 
 	private boolean ignoreFilterUrl(HttpServletRequest request) {
-		if (request.getServletPath().equals("/user/login") || request.getServletPath()
-			.equals("/user/signup") || request.getServletPath().equals("/token/refresh")
+		if (request.getServletPath().equals("/api/user/login") || request.getServletPath()
+			.equals("/api/user/signup") || request.getServletPath().equals("/api/token/refresh")
 			|| request.getServletPath().contains("/swagger-resource") || request.getServletPath()
 			.equals("/v3/api-docs")) {
 

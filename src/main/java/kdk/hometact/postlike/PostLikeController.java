@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("postlike")
+@RequestMapping("/api/postlike")
 public class PostLikeController {
 
 	private final PostLikeService postLikeService;
