@@ -22,12 +22,21 @@ public class PostDto {
 	private Long userId;
 
 	@NotNull
-	@Size(max = 100)
+	@Size(max = 500)
 	private String title;
 
 	@NotNull
-	@Size(max = 500)
+	@Size(max = 5000)
 	private String content;
+
+	@JsonProperty(access = Access.READ_ONLY)
+	private Long view;
+
+	@JsonProperty(access = Access.READ_ONLY)
+	private Long like;
+
+	@JsonProperty(access = Access.READ_ONLY)
+	private Long comment;
 
 	@JsonProperty(access = Access.READ_ONLY)
 	private LocalDateTime createdDate;
@@ -37,13 +46,16 @@ public class PostDto {
 
 	@Builder
 	public PostDto(Long postId, Long userId,
-		@NotNull @Size(max = 100) String title,
-		@NotNull @Size(max = 500) String content, LocalDateTime createdDate,
-		LocalDateTime modifiedDate) {
+		@NotNull @Size(max = 500) String title,
+		@NotNull @Size(max = 5000) String content, Long view, Long like, Long comment,
+		LocalDateTime createdDate, LocalDateTime modifiedDate) {
 		this.postId = postId;
 		this.userId = userId;
 		this.title = title;
 		this.content = content;
+		this.view = view;
+		this.like = like;
+		this.comment = comment;
 		this.createdDate = createdDate;
 		this.modifiedDate = modifiedDate;
 	}
@@ -54,6 +66,9 @@ public class PostDto {
 			.userId(post.getUser().getUserId())
 			.title(post.getTitle())
 			.content(post.getContent())
+			.view(post.getView())
+			.like(Long.valueOf(post.getPostLikes().size()))
+			.comment(Long.valueOf(post.getComments().size()))
 			.createdDate(post.getCreatedDate())
 			.modifiedDate(post.getModifiedDate())
 			.build();

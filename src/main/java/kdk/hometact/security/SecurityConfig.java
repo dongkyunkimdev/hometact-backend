@@ -6,6 +6,7 @@ import kdk.hometact.security.jwt.exception.handler.JwtAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -69,6 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				, "/swagger-resources/**"
 				, "/v3/api-docs"
 			).permitAll()
+			.antMatchers(HttpMethod.GET, "/api/post/**").permitAll()
 
 			.anyRequest().authenticated()
 

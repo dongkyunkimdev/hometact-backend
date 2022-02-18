@@ -40,11 +40,11 @@ public class Post extends BaseTimeEntity {
 	private User user;
 
 	@Column(name = "title", nullable = false)
-	@Size(max = 100)
+	@Size(max = 500)
 	private String title;
 
-	@Column(name = "content", nullable = false)
-	@Size(max = 500)
+	@Column(name = "content", nullable = false, columnDefinition = "TEXT")
+	@Size(max = 5000)
 	private String content;
 
 	@Column(name = "view")
@@ -58,8 +58,8 @@ public class Post extends BaseTimeEntity {
 
 	@Builder
 	public Post(Long postId, User user,
-		@Size(max = 100) String title,
-		@Size(max = 500) String content) {
+		@Size(max = 500) String title,
+		@Size(max = 5000) String content) {
 		this.postId = postId;
 		this.user = user;
 		this.title = title;
