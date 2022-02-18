@@ -67,7 +67,7 @@ class PostControllerTest {
 		);
 
 		// when
-		String requestUrl = "/post";
+		String requestUrl = "/api/post";
 		String requestBody = convertPostDtoJson(title, content);
 		ResultActions actions = postRequest(requestUrl, requestBody);
 
@@ -81,7 +81,7 @@ class PostControllerTest {
 	@Test
 	void 게시글_등록_예외_제목이_없음() throws Exception {
 		// when
-		String requestUrl = "/post";
+		String requestUrl = "/api/post";
 		String requestBody = "{"
 			+ " \"content\" : \"content\" "
 			+ "}";
@@ -94,7 +94,7 @@ class PostControllerTest {
 	@Test
 	void 게시글_등록_예외_제목_길이_초과() throws Exception {
 		// when
-		String requestUrl = "/post";
+		String requestUrl = "/api/post";
 		String requestBody = "{"
 			+ " \"title\" : \"titletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitle\", "
 			+ " \"content\" : \"content\" "
@@ -108,7 +108,7 @@ class PostControllerTest {
 	@Test
 	void 게시글_등록_예외_내용이_없음() throws Exception {
 		// when
-		String requestUrl = "/post";
+		String requestUrl = "/api/post";
 		String requestBody = "{"
 			+ " \"title\" : \"title\" "
 			+ "}";
@@ -121,7 +121,7 @@ class PostControllerTest {
 	@Test
 	void 게시글_등록_예외_내용_길이_초과() throws Exception {
 		// when
-		String requestUrl = "/post";
+		String requestUrl = "/api/post";
 		String requestBody = "{"
 			+ " \"title\" : \"title\", "
 			+ " \"content\" : \"contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent\" "
@@ -135,7 +135,7 @@ class PostControllerTest {
 	@Test
 	void 게시글_등록_예외_JSON_포맷_에러() throws Exception {
 		// when
-		String requestUrl = "/post";
+		String requestUrl = "/api/post";
 		String requestBody = "{"
 			+ " \"title\" : \"title\", "
 			+ " \"content\" : \"content\" ";
@@ -156,7 +156,7 @@ class PostControllerTest {
 		);
 
 		// when
-		String requestUrl = "/post";
+		String requestUrl = "/api/post";
 		ResultActions actions = getRequest(requestUrl);
 
 		// then
@@ -177,7 +177,7 @@ class PostControllerTest {
 		);
 
 		// when
-		String requestUrl = "/post/1";
+		String requestUrl = "/api/post/1";
 		ResultActions actions = getRequest(requestUrl);
 
 		// then
@@ -195,7 +195,7 @@ class PostControllerTest {
 		);
 
 		// when
-		String requestUrl = "/post/1";
+		String requestUrl = "/api/post/1";
 		AbstractThrowableAssert<?, ? extends Throwable> o = assertThatThrownBy(
 			() -> getRequest(requestUrl)
 		);
@@ -210,7 +210,7 @@ class PostControllerTest {
 		doNothing().when(postService).deletePost(any());
 
 		// when
-		String requestUrl = "/post/1";
+		String requestUrl = "/api/post/1";
 		ResultActions actions = deleteRequest(requestUrl);
 
 		// then
@@ -225,7 +225,7 @@ class PostControllerTest {
 			.when(postService).deletePost(any());
 
 		// when
-		String requestUrl = "/post/1";
+		String requestUrl = "/api/post/1";
 		AbstractThrowableAssert<?, ? extends Throwable> o = assertThatThrownBy(
 			() -> deleteRequest(requestUrl)
 		);
@@ -244,7 +244,7 @@ class PostControllerTest {
 		);
 
 		// when
-		String requestUrl = "/post/1";
+		String requestUrl = "/api/post/1";
 		String requestBody = convertPostDtoJson(updateTitle, updateContent);
 		ResultActions actions = patchRequest(requestUrl, requestBody);
 
@@ -265,7 +265,7 @@ class PostControllerTest {
 		);
 
 		// when
-		String requestUrl = "/post/1";
+		String requestUrl = "/api/post/1";
 		String requestBody = convertPostDtoJson(updateTitle, updateContent);
 		AbstractThrowableAssert<?, ? extends Throwable> o = assertThatThrownBy(
 			() -> patchRequest(requestUrl, requestBody)
@@ -278,7 +278,7 @@ class PostControllerTest {
 	@Test
 	void 게시글_수정_예외_제목이_없음() throws Exception {
 		// when
-		String requestUrl = "/post/1";
+		String requestUrl = "/api/post/1";
 		String requestBody = "{"
 			+ " \"content\" : \"content\" "
 			+ "}";
@@ -291,7 +291,7 @@ class PostControllerTest {
 	@Test
 	void 게시글_수정_예외_제목_길이_초과() throws Exception {
 		// when
-		String requestUrl = "/post/1";
+		String requestUrl = "/api/post/1";
 		String requestBody = "{"
 			+ " \"title\" : \"titletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitle\", "
 			+ " \"content\" : \"content\" "
@@ -305,7 +305,7 @@ class PostControllerTest {
 	@Test
 	void 게시글_수정_예외_내용이_없음() throws Exception {
 		// when
-		String requestUrl = "/post/1";
+		String requestUrl = "/api/post/1";
 		String requestBody = "{"
 			+ " \"title\" : \"title\" "
 			+ "}";
@@ -318,7 +318,7 @@ class PostControllerTest {
 	@Test
 	void 게시글_수정_예외_내용_길이_초과() throws Exception {
 		// when
-		String requestUrl = "/post/1";
+		String requestUrl = "/api/post/1";
 		String requestBody = "{"
 			+ " \"title\" : \"title\", "
 			+ " \"content\" : \"contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent\" "
@@ -332,7 +332,7 @@ class PostControllerTest {
 	@Test
 	void 게시글_수정_예외_JSON_포맷_에러() throws Exception {
 		// when
-		String requestUrl = "/post/1";
+		String requestUrl = "/api/post/1";
 		String requestBody = "{"
 			+ " \"title\" : \"title\", "
 			+ " \"content\" : \"content\" ";

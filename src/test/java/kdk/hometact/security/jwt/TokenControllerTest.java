@@ -67,7 +67,7 @@ class TokenControllerTest {
 			.willReturn(accessToken);
 
 		// when
-		String requestUrl = "/token/refresh";
+		String requestUrl = "/api/token/refresh";
 		ResultActions actions = mvc.perform(
 			get(requestUrl)
 				.contentType(MediaType.APPLICATION_JSON)
@@ -92,7 +92,7 @@ class TokenControllerTest {
 		given(tokenProvider.validateToken(any(), any())).willReturn(false);
 
 		// when
-		String requestUrl = "/token/refresh";
+		String requestUrl = "/api/token/refresh";
 		AbstractThrowableAssert<?, ? extends Throwable> o = assertThatThrownBy(
 			() ->
 				mvc.perform(

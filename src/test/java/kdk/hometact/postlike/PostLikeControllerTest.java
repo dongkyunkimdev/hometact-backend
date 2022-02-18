@@ -50,7 +50,7 @@ class PostLikeControllerTest {
 	@Test
 	void 좋아요_등록_성공() throws Exception {
 		// when
-		String requestUrl = "/postlike/1";
+		String requestUrl = "/api/postlike/1";
 		ResultActions actions = postRequest(requestUrl);
 
 		// then
@@ -65,7 +65,7 @@ class PostLikeControllerTest {
 			.when(postLikeService).addLike(any());
 
 		// when
-		String requestUrl = "/postlike/1";
+		String requestUrl = "/api/postlike/1";
 		AbstractThrowableAssert<?, ? extends Throwable> o = assertThatThrownBy(
 			() -> postRequest(requestUrl)
 		);
@@ -81,7 +81,7 @@ class PostLikeControllerTest {
 			.when(postLikeService).addLike(any());
 
 		// when
-		String requestUrl = "/postlike/1";
+		String requestUrl = "/api/postlike/1";
 		AbstractThrowableAssert<?, ? extends Throwable> o = assertThatThrownBy(
 			() -> postRequest(requestUrl)
 		);
@@ -96,7 +96,7 @@ class PostLikeControllerTest {
 		doThrow(new PostLikeAlreadyAddException()).when(postLikeService).addLike(any());
 
 		// when
-		String requestUrl = "/postlike/1";
+		String requestUrl = "/api/postlike/1";
 		AbstractThrowableAssert<?, ? extends Throwable> o = assertThatThrownBy(
 			() -> postRequest(requestUrl)
 		);
@@ -108,7 +108,7 @@ class PostLikeControllerTest {
 	@Test
 	void 좋아요_취소_성공() throws Exception {
 		// when
-		String requestUrl = "/postlike/1";
+		String requestUrl = "/api/postlike/1";
 		ResultActions actions = deleteRequest(requestUrl);
 
 		// then
@@ -123,7 +123,7 @@ class PostLikeControllerTest {
 			.when(postLikeService).cancelLike(any());
 
 		// when
-		String requestUrl = "/postlike/1";
+		String requestUrl = "/api/postlike/1";
 		AbstractThrowableAssert<?, ? extends Throwable> o = assertThatThrownBy(
 			() -> deleteRequest(requestUrl)
 		);
@@ -139,7 +139,7 @@ class PostLikeControllerTest {
 			.when(postLikeService).cancelLike(any());
 
 		// when
-		String requestUrl = "/postlike/1";
+		String requestUrl = "/api/postlike/1";
 		AbstractThrowableAssert<?, ? extends Throwable> o = assertThatThrownBy(
 			() -> deleteRequest(requestUrl)
 		);
@@ -155,7 +155,7 @@ class PostLikeControllerTest {
 			.when(postLikeService).cancelLike(any());
 
 		// when
-		String requestUrl = "/postlike/1";
+		String requestUrl = "/api/postlike/1";
 		AbstractThrowableAssert<?, ? extends Throwable> o = assertThatThrownBy(
 			() -> deleteRequest(requestUrl)
 		);

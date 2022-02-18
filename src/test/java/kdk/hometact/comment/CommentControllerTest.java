@@ -61,7 +61,7 @@ class CommentControllerTest {
 			.willReturn(createCommentDto(commentContent));
 
 		// when
-		String requestUrl = "/comment";
+		String requestUrl = "/api/comment";
 		String requestBody = convertCommentDtoJson(1L, commentContent);
 		ResultActions actions = postRequest(requestUrl, requestBody);
 
@@ -79,7 +79,7 @@ class CommentControllerTest {
 			.willReturn(createCommentDto(commentContent));
 
 		// when
-		String requestUrl = "/comment";
+		String requestUrl = "/api/comment";
 		String requestBody = "{"
 			+ " \"content\" : \"content\" "
 			+ "}";
@@ -97,7 +97,7 @@ class CommentControllerTest {
 			.willReturn(createCommentDto(commentContent));
 
 		// when
-		String requestUrl = "/comment";
+		String requestUrl = "/api/comment";
 		String requestBody = "{"
 			+ " \"postId\" : \"1\" "
 			+ "}";
@@ -115,7 +115,7 @@ class CommentControllerTest {
 			.willReturn(createCommentDto(commentContent));
 
 		// when
-		String requestUrl = "/comment";
+		String requestUrl = "/api/comment";
 		String requestBody = convertCommentDtoJson(1L, commentContent);
 		ResultActions actions = postRequest(requestUrl, requestBody);
 
@@ -131,7 +131,7 @@ class CommentControllerTest {
 			.willReturn(createCommentDto(commentContent));
 
 		// when
-		String requestUrl = "/comment";
+		String requestUrl = "/api/comment";
 		String requestBody = "{"
 			+ " \"postId\" : \"1\", "
 			+ " \"content\" : \"content\" ";
@@ -149,7 +149,7 @@ class CommentControllerTest {
 			.willReturn(createCommentDto(commentContent));
 
 		// when
-		String requestUrl = "/comment/1";
+		String requestUrl = "/api/comment/1";
 		String requestBody = convertUpdateCommentDtoJson(commentContent);
 		ResultActions actions = patchRequest(requestUrl, requestBody);
 
@@ -167,7 +167,7 @@ class CommentControllerTest {
 			.willReturn(createCommentDto(commentContent));
 
 		// when
-		String requestUrl = "/comment/1";
+		String requestUrl = "/api/comment/1";
 		String requestBody = "{"
 			+ "}";
 		ResultActions actions = patchRequest(requestUrl, requestBody);
@@ -185,7 +185,7 @@ class CommentControllerTest {
 			.willReturn(createCommentDto(commentContent));
 
 		// when
-		String requestUrl = "/comment/1";
+		String requestUrl = "/api/comment/1";
 		String requestBody = convertCommentDtoJson(1L, commentContent);
 		ResultActions actions = patchRequest(requestUrl, requestBody);
 
@@ -201,7 +201,7 @@ class CommentControllerTest {
 			.willReturn(createCommentDto(commentContent));
 
 		// when
-		String requestUrl = "/comment/1";
+		String requestUrl = "/api/comment/1";
 		String requestBody = "{"
 			+ " \"content\" : \"content\" ";
 		ResultActions actions = patchRequest(requestUrl, requestBody);
@@ -216,7 +216,7 @@ class CommentControllerTest {
 		doNothing().when(commentService).deleteComment(any());
 
 		// when
-		String requestUrl = "/comment/1";
+		String requestUrl = "/api/comment/1";
 		ResultActions actions = deleteRequest(requestUrl);
 
 		// then
@@ -231,7 +231,7 @@ class CommentControllerTest {
 			.when(commentService).deleteComment(any());
 
 		// when
-		String requestUrl = "/comment/1";
+		String requestUrl = "/api/comment/1";
 		AbstractThrowableAssert<?, ? extends Throwable> o = assertThatThrownBy(
 			() -> deleteRequest(requestUrl)
 		);

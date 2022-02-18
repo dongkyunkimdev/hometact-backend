@@ -71,7 +71,7 @@ class UserControllerTest {
 			.willReturn(refreshToken);
 
 		// when
-		String requestUrl = "/user/login";
+		String requestUrl = "/api/user/login";
 		String content = convertLoginDtoJson("test1@test.com", "password");
 		ResultActions actions = postRequest(requestUrl, content);
 
@@ -89,7 +89,7 @@ class UserControllerTest {
 	@Test
 	void 로그인_예외_이메일이_없음() throws Exception {
 		// when
-		String requestUrl = "/user/login";
+		String requestUrl = "/api/user/login";
 		String content = "{"
 			+ " \"password\" : \"password\" "
 			+ "}";
@@ -102,7 +102,7 @@ class UserControllerTest {
 	@Test
 	void 로그인_예외_이메일_형식이_아님() throws Exception {
 		// when
-		String requestUrl = "/user/login";
+		String requestUrl = "/api/user/login";
 		String content = convertLoginDtoJson("test1", "password");
 		ResultActions actions = postRequest(requestUrl, content);
 
@@ -113,7 +113,7 @@ class UserControllerTest {
 	@Test
 	void 로그인_예외_이메일_길이_부족() throws Exception {
 		// when
-		String requestUrl = "/user/login";
+		String requestUrl = "/api/user/login";
 		String content = convertLoginDtoJson("t@", "password");
 		ResultActions actions = postRequest(requestUrl, content);
 
@@ -124,7 +124,7 @@ class UserControllerTest {
 	@Test
 	void 로그인_예외_이메일_길이_초과() throws Exception {
 		// when
-		String requestUrl = "/user/login";
+		String requestUrl = "/api/user/login";
 		String content = convertLoginDtoJson(
 			"ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt@tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt.com",
 			"password");
@@ -137,7 +137,7 @@ class UserControllerTest {
 	@Test
 	void 로그인_예외_패스워드가_없음() throws Exception {
 		// when
-		String requestUrl = "/user/login";
+		String requestUrl = "/api/user/login";
 		String content = "{"
 			+ " \"email\" : \"test1@test.com\" "
 			+ "}";
@@ -150,7 +150,7 @@ class UserControllerTest {
 	@Test
 	void 로그인_예외_패스워드_길이_부족() throws Exception {
 		// when
-		String requestUrl = "/user/login";
+		String requestUrl = "/api/user/login";
 		String content = convertLoginDtoJson("test1@test.com", "p");
 		ResultActions actions = postRequest(requestUrl, content);
 
@@ -161,7 +161,7 @@ class UserControllerTest {
 	@Test
 	void 로그인_예외_패스워드_길이_초과() throws Exception {
 		// when
-		String requestUrl = "/user/login";
+		String requestUrl = "/api/user/login";
 		String content = convertLoginDtoJson("test1@test.com",
 			"passwordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpassword");
 		ResultActions actions = postRequest(requestUrl, content);
@@ -173,7 +173,7 @@ class UserControllerTest {
 	@Test
 	void 로그인_예외_JSON_포맷_에러() throws Exception {
 		// when
-		String requestUrl = "/user/login";
+		String requestUrl = "/api/user/login";
 		String content = "{"
 			+ " \"email\" : \"test1@test.com\", "
 			+ " \"password\" : \"password\" ";
@@ -192,7 +192,7 @@ class UserControllerTest {
 			);
 
 		// when
-		String requestUrl = "/user/signup";
+		String requestUrl = "/api/user/signup";
 		String content = convertUserDtoJson("test1@test.com", "password", "test1");
 		ResultActions actions = postRequest(requestUrl, content);
 
@@ -213,7 +213,7 @@ class UserControllerTest {
 		);
 
 		// when
-		String requestUrl = "/user/signup";
+		String requestUrl = "/api/user/signup";
 		String content = convertUserDtoJson("test1@test.com", "password", "test1");
 		AbstractThrowableAssert<?, ? extends Throwable> o = assertThatThrownBy(
 			() -> postRequest(requestUrl, content)
@@ -226,7 +226,7 @@ class UserControllerTest {
 	@Test
 	void 회원가입_예외_이메일이_없음() throws Exception {
 		// when
-		String requestUrl = "/user/signup";
+		String requestUrl = "/api/user/signup";
 		String content = "{"
 			+ " \"password\" : \"password\", "
 			+ " \"nickname\" : \"test1\" "
@@ -240,7 +240,7 @@ class UserControllerTest {
 	@Test
 	void 회원가입_예외_이메일_형식이_아님() throws Exception {
 		// when
-		String requestUrl = "/user/signup";
+		String requestUrl = "/api/user/signup";
 		String content = convertUserDtoJson("test1", "password", "test1");
 		ResultActions actions = postRequest(requestUrl, content);
 
@@ -251,7 +251,7 @@ class UserControllerTest {
 	@Test
 	void 회원가입_예외_이메일_길이_부족() throws Exception {
 		// when
-		String requestUrl = "/user/signup";
+		String requestUrl = "/api/user/signup";
 		String content = convertUserDtoJson("t@", "password", "test1");
 		ResultActions actions = postRequest(requestUrl, content);
 
@@ -262,7 +262,7 @@ class UserControllerTest {
 	@Test
 	void 회원가입_예외_이메일_길이_초과() throws Exception {
 		// when
-		String requestUrl = "/user/signup";
+		String requestUrl = "/api/user/signup";
 		String content = convertUserDtoJson(
 			"ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt@ttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt.com",
 			"password", "test1");
@@ -275,7 +275,7 @@ class UserControllerTest {
 	@Test
 	void 회원가입_예외_패스워드가_없음() throws Exception {
 		// when
-		String requestUrl = "/user/signup";
+		String requestUrl = "/api/user/signup";
 		String content = "{"
 			+ " \"email\" : \"test1@test.com\", "
 			+ " \"nickname\" : \"test1\" "
@@ -289,7 +289,7 @@ class UserControllerTest {
 	@Test
 	void 회원가입_예외_패스워드_길이_부족() throws Exception {
 		// when
-		String requestUrl = "/user/signup";
+		String requestUrl = "/api/user/signup";
 		String content = convertUserDtoJson("test1@test.com", "p", "test1");
 		ResultActions actions = postRequest(requestUrl, content);
 
@@ -300,7 +300,7 @@ class UserControllerTest {
 	@Test
 	void 회원가입_예외_패스워드_길이_초과() throws Exception {
 		// when
-		String requestUrl = "/user/signup";
+		String requestUrl = "/api/user/signup";
 		String content = convertUserDtoJson("test1@test.com",
 			"passwordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpasswordpassword",
 			"test1");
@@ -313,7 +313,7 @@ class UserControllerTest {
 	@Test
 	void 회원가입_예외_닉네임이_없음() throws Exception {
 		// when
-		String requestUrl = "/user/signup";
+		String requestUrl = "/api/user/signup";
 		String content = "{"
 			+ " \"email\" : \"test1@test.com\", "
 			+ " \"password\" : \"password\" "
@@ -327,7 +327,7 @@ class UserControllerTest {
 	@Test
 	void 회원가입_예외_닉네임_길이_부족() throws Exception {
 		// when
-		String requestUrl = "/user/signup";
+		String requestUrl = "/api/user/signup";
 		String content = convertUserDtoJson("test1@test.com", "password", "t");
 		ResultActions actions = postRequest(requestUrl, content);
 
@@ -338,7 +338,7 @@ class UserControllerTest {
 	@Test
 	void 회원가입_예외_닉네임_길이_초과() throws Exception {
 		// when
-		String requestUrl = "/user/signup";
+		String requestUrl = "/api/user/signup";
 		String content = convertUserDtoJson("test1@test.com", "password",
 			"test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1test1");
 		ResultActions actions = postRequest(requestUrl, content);
@@ -350,7 +350,7 @@ class UserControllerTest {
 	@Test
 	void 회원가입_예외_JSON_포맷_에러() throws Exception {
 		// when
-		String requestUrl = "/user/signup";
+		String requestUrl = "/api/user/signup";
 		String content = "{"
 			+ " \"email\" : \"test1@test.com\", "
 			+ " \"password\" : \"password\", "
@@ -369,7 +369,7 @@ class UserControllerTest {
 		);
 
 		// when
-		String requestUrl = "/user/myInfo";
+		String requestUrl = "/api/user/myInfo";
 		ResultActions actions = getRequest(requestUrl);
 
 		// then
@@ -389,7 +389,7 @@ class UserControllerTest {
 		);
 
 		// when
-		String requestUrl = "/user/info/test1@test.com";
+		String requestUrl = "/api/user/info/test1@test.com";
 		ResultActions actions = getRequest(requestUrl);
 
 		// then
