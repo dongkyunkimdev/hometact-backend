@@ -18,22 +18,17 @@ public class PostLikeDto {
 	private Long postLikeId;
 
 	@JsonProperty(access = Access.READ_ONLY)
-	private PostDto postDto;
-
-	@JsonProperty(access = Access.READ_ONLY)
 	private UserDto userDto;
 
 	@Builder
-	public PostLikeDto(Long postLikeId, PostDto postDto, UserDto userDto) {
+	public PostLikeDto(Long postLikeId, UserDto userDto) {
 		this.postLikeId = postLikeId;
-		this.postDto = postDto;
 		this.userDto = userDto;
 	}
 
 	public static PostLikeDto from(PostLike postLike) {
 		return PostLikeDto.builder()
 			.postLikeId(postLike.getPostLikeId())
-			.postDto(PostDto.from(postLike.getPost()))
 			.userDto(UserDto.from(postLike.getUser()))
 			.build();
 	}
