@@ -15,6 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class CommentDto {
 
+	@JsonProperty(access = Access.READ_ONLY)
+	private Long commentId;
+
 	@NotNull
 	private Long postId;
 
@@ -29,9 +32,10 @@ public class CommentDto {
 	private LocalDateTime modifiedDate;
 
 	@Builder
-	public CommentDto(@NotNull Long postId,
+	public CommentDto(Long commentId, @NotNull Long postId,
 		@NotNull @Size(max = 500) String content, LocalDateTime createdDate,
 		LocalDateTime modifiedDate) {
+		this.commentId = commentId;
 		this.postId = postId;
 		this.content = content;
 		this.createdDate = createdDate;
@@ -40,6 +44,7 @@ public class CommentDto {
 
 	public static CommentDto from(Comment comment) {
 		return CommentDto.builder()
+			.commentId(comment.getCommentId())
 			.postId(comment.getPost().getPostId())
 			.content(comment.getContent())
 			.createdDate(comment.getCreatedDate())

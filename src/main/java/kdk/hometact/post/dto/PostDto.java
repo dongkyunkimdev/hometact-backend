@@ -3,9 +3,14 @@ package kdk.hometact.post.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import kdk.hometact.comment.dto.CommentDto;
 import kdk.hometact.post.Post;
+import kdk.hometact.user.dto.UserDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +24,7 @@ public class PostDto {
 	private Long postId;
 
 	@JsonProperty(access = Access.READ_ONLY)
-	private Long userId;
+	private UserDto userDto;
 
 	@NotNull
 	@Size(max = 500)
@@ -36,7 +41,7 @@ public class PostDto {
 	private Long like;
 
 	@JsonProperty(access = Access.READ_ONLY)
-	private Long comment;
+	private List<CommentDto> commentDto = new ArrayList<>();
 
 	@JsonProperty(access = Access.READ_ONLY)
 	private LocalDateTime createdDate;
@@ -45,17 +50,18 @@ public class PostDto {
 	private LocalDateTime modifiedDate;
 
 	@Builder
-	public PostDto(Long postId, Long userId,
+	public PostDto(Long postId, UserDto userDto,
 		@NotNull @Size(max = 500) String title,
-		@NotNull @Size(max = 5000) String content, Long view, Long like, Long comment,
+		@NotNull @Size(max = 5000) String content, Long view, Long like,
+		List<CommentDto> commentDto,
 		LocalDateTime createdDate, LocalDateTime modifiedDate) {
 		this.postId = postId;
-		this.userId = userId;
+		this.userDto = userDto;
 		this.title = title;
 		this.content = content;
 		this.view = view;
 		this.like = like;
-		this.comment = comment;
+		this.commentDto = commentDto;
 		this.createdDate = createdDate;
 		this.modifiedDate = modifiedDate;
 	}
@@ -63,14 +69,19 @@ public class PostDto {
 	public static PostDto from(Post post) {
 		return PostDto.builder()
 			.postId(post.getPostId())
-			.userId(post.getUser().getUserId())
+			.userDto(UserDto.from(post.getUser()))
 			.title(post.getTitle())
 			.content(post.getContent())
 			.view(post.getView())
 			.like(Long.valueOf(post.getPostLikes().size()))
-			.comment(Long.valueOf(post.getComments().size()))
+			.commentDto(
+				post.getComments().stream().map(
+					comment -> CommentDto.from(comment)
+				)
+					.collect(Collectors.toList()))
 			.createdDate(post.getCreatedDate())
 			.modifiedDate(post.getModifiedDate())
 			.build();
 	}
+
 }

@@ -160,7 +160,7 @@ class PostRepositoryTest {
 	private PostDto createPostDto(String title, String content) {
 		return PostDto.builder()
 			.postId(1L)
-			.userId(1L)
+			.userDto(UserDto.builder().build())
 			.title(title)
 			.content(content)
 			.createdDate(LocalDateTime.now())

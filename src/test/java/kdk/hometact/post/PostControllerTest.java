@@ -19,6 +19,7 @@ import kdk.hometact.error.ErrorCode;
 import kdk.hometact.error.exception.EntityNotFoundException;
 import kdk.hometact.post.dto.PostDto;
 import kdk.hometact.security.SecurityConfig;
+import kdk.hometact.user.dto.UserDto;
 import org.assertj.core.api.AbstractThrowableAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -354,7 +355,7 @@ class PostControllerTest {
 		for (int i = 0; i < length; i++) {
 			list.add(PostDto.builder()
 				.postId(Long.valueOf(i))
-				.userId(Long.valueOf(i))
+				.userDto(UserDto.builder().build())
 				.title(title)
 				.content(content)
 				.build());
