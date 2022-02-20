@@ -96,7 +96,7 @@ class PostControllerTest {
 		// when
 		String requestUrl = "/api/post";
 		String requestBody = "{"
-			+ " \"title\" : \"titletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitle\", "
+			+ " \"title\" : \"titletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitlet\", "
 			+ " \"content\" : \"content\" "
 			+ "}";
 		ResultActions actions = postRequest(requestUrl, requestBody);
@@ -293,7 +293,7 @@ class PostControllerTest {
 		// when
 		String requestUrl = "/api/post/1";
 		String requestBody = "{"
-			+ " \"title\" : \"titletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitle\", "
+			+ " \"title\" : \"titletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitletitlet\", "
 			+ " \"content\" : \"content\" "
 			+ "}";
 		ResultActions actions = patchRequest(requestUrl, requestBody);
