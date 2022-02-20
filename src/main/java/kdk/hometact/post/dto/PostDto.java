@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import kdk.hometact.comment.dto.CommentDto;
 import kdk.hometact.post.Post;
+import kdk.hometact.postlike.dto.PostLikeDto;
 import kdk.hometact.user.dto.UserDto;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -38,10 +39,10 @@ public class PostDto {
 	private Long view;
 
 	@JsonProperty(access = Access.READ_ONLY)
-	private Long like;
+	private List<PostLikeDto> postLikeDtos = new ArrayList<>();
 
 	@JsonProperty(access = Access.READ_ONLY)
-	private List<CommentDto> commentDto = new ArrayList<>();
+	private List<CommentDto> commentDtos = new ArrayList<>();
 
 	@JsonProperty(access = Access.READ_ONLY)
 	private LocalDateTime createdDate;
@@ -52,16 +53,16 @@ public class PostDto {
 	@Builder
 	public PostDto(Long postId, UserDto userDto,
 		@NotNull @Size(max = 500) String title,
-		@NotNull @Size(max = 5000) String content, Long view, Long like,
-		List<CommentDto> commentDto,
+		@NotNull @Size(max = 5000) String content, Long view,
+		List<PostLikeDto> postLikeDtos, List<CommentDto> commentDtos,
 		LocalDateTime createdDate, LocalDateTime modifiedDate) {
 		this.postId = postId;
 		this.userDto = userDto;
 		this.title = title;
 		this.content = content;
 		this.view = view;
-		this.like = like;
-		this.commentDto = commentDto;
+		this.postLikeDtos = postLikeDtos;
+		this.commentDtos = commentDtos;
 		this.createdDate = createdDate;
 		this.modifiedDate = modifiedDate;
 	}
@@ -73,8 +74,13 @@ public class PostDto {
 			.title(post.getTitle())
 			.content(post.getContent())
 			.view(post.getView())
-			.like(Long.valueOf(post.getPostLikes().size()))
-			.commentDto(
+			.postLikeDtos(
+				post.getPostLikes().stream().map(
+					postLike -> PostLikeDto.from(postLike)
+				)
+					.collect(Collectors.toList())
+			)
+			.commentDtos(
 				post.getComments().stream().map(
 					comment -> CommentDto.from(comment)
 				)
