@@ -2,6 +2,7 @@ package kdk.hometact.post;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -50,10 +51,10 @@ public class Post extends BaseTimeEntity {
 	@Column(name = "view")
 	private Long view;
 
-	@OneToMany(mappedBy = "post")
+	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
 	List<Comment> comments = new ArrayList<>();
 
-	@OneToMany(mappedBy = "post")
+	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
 	List<PostLike> postLikes = new ArrayList<>();
 
 	@Builder
