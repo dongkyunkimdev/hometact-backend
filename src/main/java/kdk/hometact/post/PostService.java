@@ -6,6 +6,7 @@ import kdk.hometact.error.ErrorCode;
 import kdk.hometact.error.exception.EntityNotFoundException;
 import kdk.hometact.post.dto.PostDto;
 import kdk.hometact.post.dto.UploadPostDto;
+import kdk.hometact.postcategory.PostCategory;
 import kdk.hometact.postcategory.PostCategoryRepository;
 import kdk.hometact.security.SecurityUtil;
 import kdk.hometact.user.User;
@@ -66,15 +67,20 @@ public class PostService {
 	}
 
 	@Transactional
-	public PostDto updatePost(Long postId, PostDto postDto) {
+	public PostDto updatePost(Long postId, UploadPostDto postDto) {
 		Post post = postRepository.findById(postId).orElseThrow(
 			() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage())
 		);
 
+		PostCategory postCategory = postCategoryRepository.findById(postDto.getPostCategoryId())
+			.orElseThrow(
+				() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage())
+			);
+
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
 			.getAuthentication().getPrincipal();
 		if (validAuthority(post, userDetails)) {
-			post.update(postDto);
+			post.update(postDto, postCategory);
 		}
 
 		return PostDto.from(post);

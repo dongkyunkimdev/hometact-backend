@@ -241,13 +241,14 @@ class PostControllerTest {
 		// given
 		String updateTitle = "updateTitle";
 		String updateContent = "updateContent";
+		Long postCategoryId = 1L;
 		given(postService.updatePost(any(), any())).willReturn(
 			createPostDto(updateTitle, updateContent)
 		);
 
 		// when
 		String requestUrl = "/api/post/1";
-		String requestBody = convertPostDtoJson(updateTitle, updateContent);
+		String requestBody = convertUploadPostDtoJson(updateTitle, updateContent, postCategoryId);
 		ResultActions actions = patchRequest(requestUrl, requestBody);
 
 		// then
@@ -262,13 +263,14 @@ class PostControllerTest {
 		// given
 		String updateTitle = "updateTitle";
 		String updateContent = "updateContent";
+		Long postCategoryId = 1L;
 		given(postService.updatePost(any(), any())).willThrow(
 			new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage())
 		);
 
 		// when
 		String requestUrl = "/api/post/1";
-		String requestBody = convertPostDtoJson(updateTitle, updateContent);
+		String requestBody = convertUploadPostDtoJson(updateTitle, updateContent, postCategoryId);
 		AbstractThrowableAssert<?, ? extends Throwable> o = assertThatThrownBy(
 			() -> patchRequest(requestUrl, requestBody)
 		);

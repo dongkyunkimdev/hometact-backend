@@ -12,6 +12,10 @@ import java.util.List;
 import kdk.hometact.error.ErrorCode;
 import kdk.hometact.error.exception.EntityNotFoundException;
 import kdk.hometact.post.dto.PostDto;
+import kdk.hometact.post.dto.UploadPostDto;
+import kdk.hometact.postcategory.PostCategory;
+import kdk.hometact.postcategory.PostCategoryRepository;
+import kdk.hometact.postcategory.dto.PostCategoryDto;
 import kdk.hometact.user.User;
 import kdk.hometact.user.UserRepository;
 import kdk.hometact.user.auth.Authority;
@@ -35,6 +39,8 @@ class PostRepositoryTest {
 	private UserRepository userRepository;
 	@Autowired
 	private UserRepository realUserRepository;
+	@Autowired
+	private PostCategoryRepository postCategoryRepository;
 	private PasswordEncoder passwordEncoder;
 
 	@BeforeEach
@@ -103,12 +109,14 @@ class PostRepositoryTest {
 			ofNullable(User.builder().build())
 		);
 		Post post = postRepository.save(createPost("title", "content"));
+		PostCategory postCategory = postCategoryRepository.save(createPostCategory("독서"));
+		PostCategory updatePostCategory = postCategoryRepository.save(createPostCategory("영화"));
 
 		// when
 		String updateTitle = "updateTitle";
 		String updateContent = "updateContent";
-		PostDto postDto = createPostDto(updateTitle, updateContent);
-		post.update(postDto);
+		UploadPostDto postDto = createUploadPostDto(updateTitle, updateContent);
+		post.update(postDto, updatePostCategory);
 		Post result = postRepository.findById(post.getPostId()).orElseThrow(
 			() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage())
 		);
@@ -149,6 +157,12 @@ class PostRepositoryTest {
 			.build();
 	}
 
+	private PostCategory createPostCategory(String categoryName) {
+		return PostCategory.builder()
+			.categoryName(categoryName)
+			.build();
+	}
+
 	private Post createPostWithRealUser(String title, String content, User user) {
 		return Post.builder()
 			.user(user)
@@ -157,14 +171,10 @@ class PostRepositoryTest {
 			.build();
 	}
 
-	private PostDto createPostDto(String title, String content) {
-		return PostDto.builder()
-			.postId(1L)
-			.userDto(UserDto.builder().build())
+	private UploadPostDto createUploadPostDto(String title, String content) {
+		return UploadPostDto.builder()
 			.title(title)
 			.content(content)
-			.createdDate(LocalDateTime.now())
-			.modifiedDate(LocalDateTime.now())
 			.build();
 	}
 

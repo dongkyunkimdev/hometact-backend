@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import kdk.hometact.BaseTimeEntity;
 import kdk.hometact.comment.Comment;
-import kdk.hometact.post.dto.PostDto;
+import kdk.hometact.post.dto.UploadPostDto;
 import kdk.hometact.postcategory.PostCategory;
 import kdk.hometact.postlike.PostLike;
 import kdk.hometact.user.User;
@@ -73,9 +73,10 @@ public class Post extends BaseTimeEntity {
 		this.postCategory = postCategory;
 	}
 
-	public void update(PostDto postDto) {
+	public void update(UploadPostDto postDto, PostCategory postCategory) {
 		this.title = postDto.getTitle();
 		this.content = postDto.getContent();
+		this.postCategory = postCategory;
 	}
 
 	public void addViewCnt() {

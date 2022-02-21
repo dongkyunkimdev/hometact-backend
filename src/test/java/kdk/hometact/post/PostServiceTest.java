@@ -287,6 +287,7 @@ class PostServiceTest {
 		given(postRepository.findById(any())).willReturn(
 			Optional.ofNullable(createPost(title, content, user, postCategory))
 		);
+		given(postCategoryRepository.findById(any())).willReturn(Optional.ofNullable(postCategory));
 
 		Authentication authentication = mock(Authentication.class);
 		SecurityContext securityContext = mock(SecurityContext.class);
@@ -300,7 +301,7 @@ class PostServiceTest {
 
 		// when
 		PostDto result = postService
-			.updatePost(1L, createPostDto(updateTitle, updateContent));
+			.updatePost(1L, createUploadPostDto(updateTitle, updateContent));
 
 		// then
 		assertThat(result.getTitle()).isEqualTo(updateTitle);
@@ -322,6 +323,7 @@ class PostServiceTest {
 		given(postRepository.findById(any())).willReturn(
 			Optional.ofNullable(createPost(title, content, user, postCategory))
 		);
+		given(postCategoryRepository.findById(any())).willReturn(Optional.ofNullable(postCategory));
 
 		Authentication authentication = mock(Authentication.class);
 		SecurityContext securityContext = mock(SecurityContext.class);
@@ -335,7 +337,7 @@ class PostServiceTest {
 
 		// when
 		PostDto result = postService
-			.updatePost(1L, createPostDto(updateTitle, updateContent));
+			.updatePost(1L, createUploadPostDto(updateTitle, updateContent));
 
 		// then
 		assertThat(result.getTitle()).isEqualTo(updateTitle);
@@ -349,7 +351,7 @@ class PostServiceTest {
 
 		// when
 		EntityNotFoundException e = assertThrows(EntityNotFoundException.class,
-			() -> postService.updatePost(1L, mock(PostDto.class))
+			() -> postService.updatePost(1L, mock(UploadPostDto.class))
 		);
 
 		// then
@@ -369,6 +371,7 @@ class PostServiceTest {
 		given(postRepository.findById(any())).willReturn(
 			Optional.ofNullable(createPost(title, content, user, postCategory))
 		);
+		given(postCategoryRepository.findById(any())).willReturn(Optional.ofNullable(postCategory));
 
 		Authentication authentication = mock(Authentication.class);
 		SecurityContext securityContext = mock(SecurityContext.class);
@@ -382,7 +385,7 @@ class PostServiceTest {
 
 		// when
 		AccessDeniedException e = assertThrows(AccessDeniedException.class,
-			() -> postService.updatePost(1L, mock(PostDto.class))
+			() -> postService.updatePost(1L, mock(UploadPostDto.class))
 		);
 
 		// then
