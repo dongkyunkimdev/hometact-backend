@@ -40,6 +40,16 @@ public class PostController {
 		return ResponseEntity.ok().body(postService.selectAllPost(pageRequest));
 	}
 
+	@GetMapping("/category/{postCategoryId}")
+	public ResponseEntity<List<PostDto>> selectAllPostByPostCategory(
+		@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+		@RequestParam(value = "size", required = false, defaultValue = "10") Integer size,
+		@PathVariable Long postCategoryId) {
+		PageRequest pageRequest = PageRequest.of(page, size, Sort.by("createdDate").descending());
+
+		return ResponseEntity.ok().body(postService.selectAllPostByPostCategory(pageRequest, postCategoryId));
+	}
+
 	@GetMapping("/{postId}")
 	public ResponseEntity<PostDto> selectPost(@PathVariable Long postId) {
 		postService.addViewCnt(postId);

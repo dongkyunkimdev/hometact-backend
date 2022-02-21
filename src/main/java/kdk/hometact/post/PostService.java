@@ -60,6 +60,17 @@ public class PostService {
 	}
 
 	@Transactional(readOnly = true)
+	public List<PostDto> selectAllPostByPostCategory(PageRequest pageRequest, Long postCategoryId) {
+		PostCategory postCategory = postCategoryRepository.findById(postCategoryId).orElseThrow(
+			() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage())
+		);
+
+		return postRepository.findAllByPostCategory(pageRequest, postCategory).getContent().stream()
+			.map(post -> PostDto.from(post))
+			.collect(Collectors.toList());
+	}
+
+	@Transactional(readOnly = true)
 	public PostDto selectPost(Long postId) {
 		return PostDto.from(postRepository.findById(postId).orElseThrow(
 			() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage()))
@@ -116,4 +127,6 @@ public class PostService {
 		);
 		post.addViewCnt();
 	}
+
+
 }
