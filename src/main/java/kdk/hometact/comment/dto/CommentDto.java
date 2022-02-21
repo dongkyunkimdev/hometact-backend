@@ -24,7 +24,7 @@ public class CommentDto {
 	private Long postId;
 
 	@NotNull
-	@Size(max = 500)
+	@Size(max = 5000)
 	private String content;
 
 	@JsonProperty(access = Access.READ_ONLY)

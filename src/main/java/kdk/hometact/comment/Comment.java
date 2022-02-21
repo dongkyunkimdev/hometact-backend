@@ -39,7 +39,7 @@ public class Comment extends BaseTimeEntity {
 	private User user;
 
 	@Column(name = "content", nullable = false)
-	@Size(max = 500)
+	@Size(max = 5000)
 	private String content;
 
 	@Builder
