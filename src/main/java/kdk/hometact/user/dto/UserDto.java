@@ -25,11 +25,11 @@ public class UserDto {
 
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@NotNull
-	@Size(min = 3, max = 100)
+	@Size(min = 8, max = 100)
 	private String password;
 
 	@NotNull
-	@Size(min = 3, max = 50)
+	@Size(min = 3, max = 20)
 	private String nickname;
 
 	@JsonProperty(access = Access.READ_ONLY)
@@ -38,8 +38,8 @@ public class UserDto {
 	@Builder
 	public UserDto(
 		@NotNull @Size(min = 3, max = 100) @Email String email,
-		@NotNull @Size(min = 3, max = 100) String password,
-		@NotNull @Size(min = 3, max = 50) String nickname,
+		@NotNull @Size(min = 8, max = 100) String password,
+		@NotNull @Size(min = 3, max = 20) String nickname,
 		Set<AuthorityDto> authorityDtoSet) {
 		this.email = email;
 		this.password = password;

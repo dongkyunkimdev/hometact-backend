@@ -40,7 +40,7 @@ public class CommentDto {
 
 	@Builder
 	public CommentDto(Long commentId, @NotNull Long postId,
-		@NotNull @Size(max = 500) String content, UserDto userDto, LocalDateTime createdDate,
+		@NotNull @Size(max = 5000) String content, UserDto userDto, LocalDateTime createdDate,
 		LocalDateTime modifiedDate) {
 		this.commentId = commentId;
 		this.postId = postId;

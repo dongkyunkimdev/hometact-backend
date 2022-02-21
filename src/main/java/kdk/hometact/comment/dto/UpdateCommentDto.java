@@ -12,12 +12,12 @@ import lombok.NoArgsConstructor;
 public class UpdateCommentDto {
 
 	@NotNull
-	@Size(max = 500)
+	@Size(max = 5000)
 	private String content;
 
 	@Builder
 	public UpdateCommentDto(
-		@NotNull @Size(max = 500) String content) {
+		@NotNull @Size(max = 5000) String content) {
 		this.content = content;
 	}
 }

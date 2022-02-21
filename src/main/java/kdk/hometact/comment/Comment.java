@@ -44,7 +44,7 @@ public class Comment extends BaseTimeEntity {
 
 	@Builder
 	public Comment(Long commentId, Post post, User user,
-		@Size(max = 500) String content) {
+		@Size(max = 5000) String content) {
 		this.commentId = commentId;
 		this.post = post;
 		this.user = user;

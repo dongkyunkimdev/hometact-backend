@@ -21,13 +21,13 @@ public class LoginDto {
 
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@NotNull
-	@Size(min = 3, max = 100)
+	@Size(min = 8, max = 100)
 	private String password;
 
 	@Builder
 	public LoginDto(
-		@NotNull @Size(min = 3, max = 50) @Email String email,
-		@NotNull @Size(min = 3, max = 100) String password) {
+		@NotNull @Size(min = 3, max = 100) @Email String email,
+		@NotNull @Size(min = 8, max = 100) String password) {
 		this.email = email;
 		this.password = password;
 	}

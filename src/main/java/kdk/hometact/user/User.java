@@ -40,11 +40,11 @@ public class User extends BaseTimeEntity {
 	private String email;
 
 	@Column(name = "password", nullable = false)
-	@Size(min = 3, max = 100)
+	@Size(min = 8, max = 100)
 	private String password;
 
 	@Column(name = "nickname", nullable = false)
-	@Size(min = 3, max = 50)
+	@Size(min = 3, max = 20)
 	private String nickname;
 
 	@OneToMany(mappedBy = "user")
