@@ -18,6 +18,7 @@ import javax.validation.constraints.Size;
 import kdk.hometact.BaseTimeEntity;
 import kdk.hometact.comment.Comment;
 import kdk.hometact.post.dto.PostDto;
+import kdk.hometact.postcategory.PostCategory;
 import kdk.hometact.postlike.PostLike;
 import kdk.hometact.user.User;
 import lombok.AccessLevel;
@@ -57,14 +58,19 @@ public class Post extends BaseTimeEntity {
 	@OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
 	List<PostLike> postLikes = new ArrayList<>();
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "post_category_id")
+	private PostCategory postCategory;
+
 	@Builder
 	public Post(Long postId, User user,
 		@Size(max = 500) String title,
-		@Size(max = 5000) String content) {
+		@Size(max = 5000) String content, PostCategory postCategory) {
 		this.postId = postId;
 		this.user = user;
 		this.title = title;
 		this.content = content;
+		this.postCategory = postCategory;
 	}
 
 	public void update(PostDto postDto) {

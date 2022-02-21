@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 import kdk.hometact.error.ErrorCode;
 import kdk.hometact.error.exception.EntityNotFoundException;
 import kdk.hometact.post.dto.PostDto;
+import kdk.hometact.post.dto.UploadPostDto;
+import kdk.hometact.postcategory.PostCategoryRepository;
 import kdk.hometact.security.SecurityUtil;
 import kdk.hometact.user.User;
 import kdk.hometact.user.UserRepository;
@@ -23,17 +25,21 @@ public class PostService {
 
 	private final PostRepository postRepository;
 	private final UserRepository userRepository;
+	private final PostCategoryRepository postCategoryRepository;
 
 	@Transactional
-	public PostDto uploadPost(PostDto postDto) {
+	public PostDto uploadPost(UploadPostDto postDto) {
 		Post post = toEntity(postDto);
 
 		return PostDto.from(postRepository.save(post));
 	}
 
-	private Post toEntity(PostDto postDto) {
+	private Post toEntity(UploadPostDto postDto) {
 		return Post.builder()
 			.user(getUser())
+			.postCategory(postCategoryRepository.findById(postDto.getPostCategoryId()).orElseThrow(
+				() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage())
+			))
 			.title(postDto.getTitle())
 			.content(postDto.getContent())
 			.build();

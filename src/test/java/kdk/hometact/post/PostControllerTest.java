@@ -63,13 +63,14 @@ class PostControllerTest {
 		// given
 		String title = "title";
 		String content = "content";
+		Long postCategoryId = 1L;
 		given(postService.uploadPost(any())).willReturn(
 			createPostDto(title, content)
 		);
 
 		// when
 		String requestUrl = "/api/post";
-		String requestBody = convertPostDtoJson(title, content);
+		String requestBody = convertUploadPostDtoJson(title, content, postCategoryId);
 		ResultActions actions = postRequest(requestUrl, requestBody);
 
 		// then
@@ -370,6 +371,20 @@ class PostControllerTest {
 			.append("\",")
 			.append(" \"content\" : \"")
 			.append(content)
+			.append("\"")
+			.append("}"));
+	}
+
+	private String convertUploadPostDtoJson(String title, String content, Long postCategoryId) {
+		return String.valueOf(new StringBuffer().append("{")
+			.append(" \"title\" : \"")
+			.append(title)
+			.append("\",")
+			.append(" \"content\" : \"")
+			.append(content)
+			.append("\",")
+			.append(" \"postCategoryId\" : \"")
+			.append(postCategoryId)
 			.append("\"")
 			.append("}"));
 	}

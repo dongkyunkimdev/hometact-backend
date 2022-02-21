@@ -3,6 +3,7 @@ package kdk.hometact.post;
 import java.util.List;
 import javax.validation.Valid;
 import kdk.hometact.post.dto.PostDto;
+import kdk.hometact.post.dto.UploadPostDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -26,7 +27,7 @@ public class PostController {
 	private final PostService postService;
 
 	@PostMapping
-	public ResponseEntity<PostDto> uploadPost(@Valid @RequestBody PostDto postDto) {
+	public ResponseEntity<PostDto> uploadPost(@Valid @RequestBody UploadPostDto postDto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(postService.uploadPost(postDto));
 	}
 

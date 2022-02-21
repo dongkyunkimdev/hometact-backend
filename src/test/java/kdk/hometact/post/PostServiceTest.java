@@ -16,6 +16,9 @@ import java.util.Optional;
 import kdk.hometact.error.ErrorCode;
 import kdk.hometact.error.exception.EntityNotFoundException;
 import kdk.hometact.post.dto.PostDto;
+import kdk.hometact.post.dto.UploadPostDto;
+import kdk.hometact.postcategory.PostCategory;
+import kdk.hometact.postcategory.PostCategoryRepository;
 import kdk.hometact.security.SecurityUtil;
 import kdk.hometact.user.User;
 import kdk.hometact.user.UserRepository;
@@ -44,11 +47,13 @@ class PostServiceTest {
 	private PostRepository postRepository;
 	@Mock
 	private UserRepository userRepository;
+	@Mock
+	private PostCategoryRepository postCategoryRepository;
 
 	@BeforeEach
 	void setUp() {
 		MockitoAnnotations.openMocks(this);
-		postService = new PostService(postRepository, userRepository);
+		postService = new PostService(postRepository, userRepository, postCategoryRepository);
 	}
 
 	@Test
@@ -56,6 +61,7 @@ class PostServiceTest {
 		// given
 		MockedStatic<SecurityUtil> mockSecurityUtil = mockStatic(SecurityUtil.class);
 		User user = mock(User.class);
+		PostCategory postCategory = mock(PostCategory.class);
 		String email = "test1@test.com";
 		String title = "title";
 		String content = "content";
@@ -63,10 +69,12 @@ class PostServiceTest {
 		given(userRepository.findOneWithAuthoritiesByEmail(email)).willReturn(
 			Optional.ofNullable(user)
 		);
-		given(postRepository.save(any())).willReturn(createPost(title, content, user));
+		given(postCategoryRepository.findById(any())).willReturn(Optional.ofNullable(postCategory));
+		given(postRepository.save(any()))
+			.willReturn(createPost(title, content, user, postCategory));
 
 		// when
-		PostDto result = postService.uploadPost(createPostDto(title, content));
+		PostDto result = postService.uploadPost(createUploadPostDto(title, content));
 
 		// then
 		assertThat(result.getTitle()).isEqualTo(title);
@@ -83,13 +91,15 @@ class PostServiceTest {
 		String email = "test1@test.com";
 		String title = "title";
 		String content = "content";
+		PostCategory postCategory = mock(PostCategory.class);
 		given(SecurityUtil.getCurrentUsername()).willReturn(Optional.ofNullable(email));
 		given(userRepository.findOneWithAuthoritiesByEmail(email))
 			.willReturn(Optional.ofNullable(null));
+		given(postCategoryRepository.findById(any())).willReturn(Optional.ofNullable(postCategory));
 
 		// when
 		UsernameNotFoundException e = assertThrows(UsernameNotFoundException.class,
-			() -> postService.uploadPost(createPostDto(title, content))
+			() -> postService.uploadPost(createUploadPostDto(title, content))
 		);
 
 		// then
@@ -106,8 +116,9 @@ class PostServiceTest {
 		String content = "content";
 		int listSize = 3;
 		User user = mock(User.class);
+		PostCategory postCategory = mock(PostCategory.class);
 		given(postRepository.findAll((Pageable) any())).willReturn(
-			new PageImpl<>(createPostList(title, content, user, listSize))
+			new PageImpl<>(createPostList(title, content, user, postCategory, listSize))
 		);
 
 		// when
@@ -131,8 +142,9 @@ class PostServiceTest {
 		String title = "title";
 		String content = "content";
 		User user = mock(User.class);
+		PostCategory postCategory = mock(PostCategory.class);
 		given(postRepository.findById(any())).willReturn(
-			Optional.ofNullable(createPost(title, content, user))
+			Optional.ofNullable(createPost(title, content, user, postCategory))
 		);
 
 		// when
@@ -164,9 +176,10 @@ class PostServiceTest {
 		String content = "content";
 		String email = "test1@test.com";
 		User user = mock(User.class);
+		PostCategory postCategory = mock(PostCategory.class);
 		given(user.getEmail()).willReturn(email);
 		given(postRepository.findById(any())).willReturn(
-			Optional.ofNullable(createPost(title, content, user))
+			Optional.ofNullable(createPost(title, content, user, postCategory))
 		);
 		doNothing().when(postRepository).delete(any());
 
@@ -192,9 +205,10 @@ class PostServiceTest {
 		String email = "test1@test.com";
 		String unmatchedEmail = "admin@admin.com";
 		User user = mock(User.class);
+		PostCategory postCategory = mock(PostCategory.class);
 		given(user.getEmail()).willReturn(email);
 		given(postRepository.findById(any())).willReturn(
-			Optional.ofNullable(createPost(title, content, user))
+			Optional.ofNullable(createPost(title, content, user, postCategory))
 		);
 		doNothing().when(postRepository).delete(any());
 
@@ -234,9 +248,10 @@ class PostServiceTest {
 		String email = "test1@test.com";
 		String unmatchedEmail = "test2@test.com";
 		User user = mock(User.class);
+		PostCategory postCategory = mock(PostCategory.class);
 		given(user.getEmail()).willReturn(email);
 		given(postRepository.findById(any())).willReturn(
-			Optional.ofNullable(createPost(title, content, user))
+			Optional.ofNullable(createPost(title, content, user, postCategory))
 		);
 
 		Authentication authentication = mock(Authentication.class);
@@ -267,9 +282,10 @@ class PostServiceTest {
 		String updateContent = "updateContent";
 		String email = "test1@test.com";
 		User user = mock(User.class);
+		PostCategory postCategory = mock(PostCategory.class);
 		given(user.getEmail()).willReturn(email);
 		given(postRepository.findById(any())).willReturn(
-			Optional.ofNullable(createPost(title, content, user))
+			Optional.ofNullable(createPost(title, content, user, postCategory))
 		);
 
 		Authentication authentication = mock(Authentication.class);
@@ -301,9 +317,10 @@ class PostServiceTest {
 		String email = "test1@test.com";
 		String unmatchedEmail = "test2@test.com";
 		User user = mock(User.class);
+		PostCategory postCategory = mock(PostCategory.class);
 		given(user.getEmail()).willReturn(email);
 		given(postRepository.findById(any())).willReturn(
-			Optional.ofNullable(createPost(title, content, user))
+			Optional.ofNullable(createPost(title, content, user, postCategory))
 		);
 
 		Authentication authentication = mock(Authentication.class);
@@ -347,9 +364,10 @@ class PostServiceTest {
 		String email = "test1@test.com";
 		String unmatchedEmail = "test2@test.com";
 		User user = mock(User.class);
+		PostCategory postCategory = mock(PostCategory.class);
 		given(user.getEmail()).willReturn(email);
 		given(postRepository.findById(any())).willReturn(
-			Optional.ofNullable(createPost(title, content, user))
+			Optional.ofNullable(createPost(title, content, user, postCategory))
 		);
 
 		Authentication authentication = mock(Authentication.class);
@@ -378,21 +396,32 @@ class PostServiceTest {
 			.build();
 	}
 
-	private Post createPost(String title, String content, User user) {
-		return Post.builder()
-			.postId(1L)
-			.user(user)
+	private UploadPostDto createUploadPostDto(String title, String content) {
+		return UploadPostDto.builder()
 			.title(title)
 			.content(content)
 			.build();
 	}
 
-	private List<Post> createPostList(String title, String content, User user, int length) {
+	private Post createPost(String title, String content, User user,
+		PostCategory postCategory) {
+		return Post.builder()
+			.postId(1L)
+			.user(user)
+			.title(title)
+			.content(content)
+			.postCategory(postCategory)
+			.build();
+	}
+
+	private List<Post> createPostList(String title, String content, User user,
+		PostCategory postCategory, int length) {
 		List<Post> list = new ArrayList<>();
 		for (int i = 0; i < length; i++) {
 			list.add(Post.builder()
 				.postId(Long.valueOf(i))
 				.user(user)
+				.postCategory(postCategory)
 				.title(title)
 				.content(content)
 				.build());
