@@ -69,6 +69,8 @@ class UserControllerTest {
 			.willReturn(accessToken);
 		given(jwtService.getJwt(any(), eq(EnumToken.REFRESH)))
 			.willReturn(refreshToken);
+		given(userService.getUserWithAuthorities(any()))
+			.willReturn(createUserDto("test1@test.com", "password", "test1"));
 
 		// when
 		String requestUrl = "/api/user/login";

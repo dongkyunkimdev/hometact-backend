@@ -34,12 +34,14 @@ public class UserController {
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, "Bearer " + accessToken);
 		httpHeaders.add(JwtFilter.REFRESH_HEADER, "Bearer " + refreshToken);
+		UserDto userDto = userService.getUserWithAuthorities(loginDto.getEmail());
 
 		return ResponseEntity.ok()
 			.headers(httpHeaders)
 			.body(TokenDto.builder()
 				.accessToken(accessToken)
 				.refreshToken(refreshToken)
+				.nickname(userDto.getNickname())
 				.build()
 			);
 	}
