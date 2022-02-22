@@ -10,13 +10,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
 	@Override
-	@EntityGraph(attributePaths = "user")
+	@EntityGraph(attributePaths = {"user", "postCategory"})
 	Page<Post> findAll(Pageable pageable);
 
 	@Override
-	@EntityGraph(attributePaths = "user")
+	@EntityGraph(attributePaths = {"user", "postCategory"})
 	Optional<Post> findById(Long aLong);
 
-	@EntityGraph(attributePaths = "user")
+
+	@EntityGraph(attributePaths = {"user", "postCategory"})
 	Page<Post> findAllByPostCategory(Pageable pageable, PostCategory postCategory);
 }
