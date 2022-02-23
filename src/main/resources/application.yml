@@ -3,10 +3,10 @@ spring:
 #    default: prod
 
   datasource:
-    url: hometact.cidyenzm1vnz.ap-northeast-2.rds.amazonaws.com
+    url: jdbc:mariadb://hometact.cidyenzm1vnz.ap-northeast-2.rds.amazonaws.com:3306/hometact
     driver-class-name: org.mariadb.jdbc.Driver
-    username: hometact
-    password: kdk0490
+    username: dongkyun
+    password: hometact
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
