@@ -1,5 +1,6 @@
-datasource:
-  url: jdbc:mariadb://192.168.0.2:3306/hometact
-  driver-class-name: org.mariadb.jdbc.Driver
-  username: hometact
-  password: kdk0490
+spring:
+  datasource:
+    url: jdbc:mariadb://192.168.0.2:3306/hometact
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: hometact
+    password: kdk0490
