@@ -40,8 +40,8 @@ deploy:
       bucket: hometact-deploy # S3 버킷
       key: hometact-backend.zip # S3 버킷에 저장된 jaewon-study.zip 파일을 EC2로 배포
       bundle_type: zip
-      application: devkim-study-webservice # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
-      deployment_group: devkim-study-webservice-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
+      application: hometact # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
+      deployment_group: hometact-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
       region: ap-northeast-2
       wait-until-deployed: true
       on:
