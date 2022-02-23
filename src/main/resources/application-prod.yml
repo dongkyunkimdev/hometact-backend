@@ -1,0 +1,5 @@
+datasource:
+  url: hometact.cidyenzm1vnz.ap-northeast-2.rds.amazonaws.com
+  driver-class-name: org.mariadb.jdbc.Driver
+  username: dongkyun
+  password: hometact
