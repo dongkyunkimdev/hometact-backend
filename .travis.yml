@@ -15,6 +15,19 @@ cache:
 
 script: "./gradlew clean build -x test"
 
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
+    bucket: hometact-deploy # 생성한 S3 버킷
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: public_read
+    wait-until-deployed: true
+    on:
+      repo: dongkyunkimdev/hometact-frontend #Github 주소
+      branch: main
+
 before_install:
   - chmod +x gradlew
 
@@ -23,3 +36,4 @@ notifications:
   email:
     recipients:
       - ddkds66@gmail.com
+
