@@ -1,11 +1,11 @@
 spring:
   profiles:
-    default: local
+    default: prod
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     generate-ddl: false
     properties:
       hibernate:
@@ -21,3 +21,6 @@ jwt:
   secret: a2RrLXRlY2gtc3ByaW5nLWJvb3Qtand0LXR1dG9yaWFsLXNlY3JldC1rZGstdGVjaC1zcHJpbmctYm9vdC1qd3QtdHV0b3JpYWwtc2VjcmV0
   access-token-validity-in-seconds: 600
   refresh-token-validity-in-seconds: 604800
+
+server:
+  port: 8080
