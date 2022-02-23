@@ -1,6 +1,6 @@
 spring:
   profiles:
-    default: prod
+    default: local
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
