@@ -24,7 +24,6 @@ deploy:
     skip_cleanup: true
     acl: public_read
     wait-until-deployed: true
-    edge: true
     on:
       repo: dongkyunkimdev/hometact-backend #Github 주소
       branch: master
