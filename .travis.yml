@@ -26,7 +26,7 @@ deploy:
     wait-until-deployed: true
     on:
       repo: dongkyunkimdev/hometact-backend #Github 주소
-      branch: master
+      branch: all_branches
 
 before_install:
   - chmod +x gradlew
