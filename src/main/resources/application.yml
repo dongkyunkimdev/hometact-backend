@@ -1,6 +1,12 @@
 spring:
-  profiles:
-    default: prod
+#  profiles:
+#    default: prod
+
+  datasource:
+    url: hometact.cidyenzm1vnz.ap-northeast-2.rds.amazonaws.com
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: hometact
+    password: kdk0490
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
