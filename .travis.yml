@@ -25,7 +25,7 @@ deploy:
     acl: public_read
     wait-until-deployed: true
     on:
-      repo: dongkyunkimdev/hometact-frontend #Github 주소
+      repo: dongkyunkimdev/hometact-backend #Github 주소
       branch: main
 
 before_install:
