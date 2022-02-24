@@ -21,8 +21,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 @EnableWebMvc
 public class SwaggerConfig {
 
-	private static final String API_NAME = "게시판 CRUD API";
-	private static final String API_DESCRIPTION = "게시판 CRUD API 명세서";
+	private static final String API_NAME = "홈택트 API";
+	private static final String API_DESCRIPTION = "홈택트 API 명세서";
 	private static final String API_VERSION = "1.0";
 	private static final String AUTHORIZATION_TYPE = "JWT";
 
