@@ -15,6 +15,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.firewall.DefaultHttpFirewall;
+import org.springframework.security.web.firewall.HttpFirewall;
 
 @Configuration
 @EnableWebSecurity
@@ -30,6 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
+	@Bean
+	public HttpFirewall defaultHttpFirewall() {
+		return new DefaultHttpFirewall();
+	}
+
 	@Override
 	public void configure(WebSecurity web) {
 		web
@@ -38,7 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				"/h2-console/**"
 				, "/favicon.ico"
 				, "/swagger-ui/**"
-			);
+			)
+			.and()
+			.httpFirewall(defaultHttpFirewall());
 	}
 
 	@Override
@@ -69,7 +78,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				, "/swagger-resources"
 				, "/swagger-resources/**"
 				, "/v3/api-docs"
-				, "/test"
 			).permitAll()
 			.antMatchers(HttpMethod.GET, "/api/post/**").permitAll()
 			.antMatchers(HttpMethod.GET, "/api/postcategory/**").permitAll()
