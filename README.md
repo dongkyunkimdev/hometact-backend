@@ -4,11 +4,12 @@
 
 ## 2. 프로젝트 환경
 - IDE : IntelliJ
-- ORM : Spring Data JPA
+- Framework : Spring Boot 3.0.0
+- ORM : Spring Data JPA 2.6.3
 - CI/CD : Travis CI, AWS S3, CodeDeploy
-- Auth : JWT
-- DB : MariaDB
-- Server : AWS EC2
+- Auth : JWT 0.11.2
+- DB : MariaDB 10.5.13
+- Server : AWS EC2 Amazon Linux
 
 ## 3. 디렉토리 구조
     ├── src
