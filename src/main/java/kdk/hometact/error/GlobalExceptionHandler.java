@@ -5,6 +5,7 @@ import kdk.hometact.error.exception.EntityNotFoundException;
 import kdk.hometact.postlike.exception.PostLikeAlreadyAddException;
 import kdk.hometact.security.jwt.exception.InvalidTokenException;
 import kdk.hometact.user.exception.EmailAlreadyUseException;
+import kdk.hometact.user.exception.NicknameAlreadyUseException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -149,6 +150,15 @@ public class GlobalExceptionHandler {
 		final ErrorResponse response = ErrorResponse.of(ErrorCode.USER_NOT_FOUND);
 		return new ResponseEntity<>(response,
 			HttpStatus.valueOf(ErrorCode.USER_NOT_FOUND.getStatus()));
+	}
+
+	@ExceptionHandler(NicknameAlreadyUseException.class)
+	protected ResponseEntity<ErrorResponse> handleEmailAlreadyUseException(
+		NicknameAlreadyUseException e) {
+		log.error("handleNicknameAlreadyUseException", e);
+		final ErrorResponse response = ErrorResponse.of(ErrorCode.NICKNAME_DUPLICATION);
+		return new ResponseEntity<>(response,
+			HttpStatus.valueOf(ErrorCode.NICKNAME_DUPLICATION.getStatus()));
 	}
 
 	// Authentication

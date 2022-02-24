@@ -6,6 +6,7 @@ import kdk.hometact.security.SecurityUtil;
 import kdk.hometact.user.auth.Authority;
 import kdk.hometact.user.dto.UserDto;
 import kdk.hometact.user.exception.EmailAlreadyUseException;
+import kdk.hometact.user.exception.NicknameAlreadyUseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +23,7 @@ public class UserService {
 	@Transactional
 	public UserDto signup(UserDto userDto) {
 		validDuplEmail(userDto);
+		validDuplNickname(userDto);
 
 		User user = toEntity(userDto);
 
@@ -40,6 +42,12 @@ public class UserService {
 	private void validDuplEmail(UserDto userDto) {
 		if (userRepository.existsByEmail(userDto.getEmail())) {
 			throw new EmailAlreadyUseException(ErrorCode.EMAIL_DUPLICATION.getMessage());
+		}
+	}
+
+	private void validDuplNickname(UserDto userDto) {
+		if (userRepository.existsByNickname(userDto.getNickname())) {
+			throw new NicknameAlreadyUseException(ErrorCode.EMAIL_DUPLICATION.getMessage());
 		}
 	}
 
