@@ -34,8 +34,9 @@ public class PostController {
 	@GetMapping
 	public ResponseEntity<List<PostDto>> selectAllPost(
 		@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
-		@RequestParam(value = "size", required = false, defaultValue = "10") Integer size) {
-		PageRequest pageRequest = PageRequest.of(page, size, Sort.by("createdDate").descending());
+		@RequestParam(value = "size", required = false, defaultValue = "10") Integer size,
+		@RequestParam(value = "order") String order) {
+		PageRequest pageRequest = PageRequest.of(page, size, Sort.by(order).descending());
 
 		return ResponseEntity.ok().body(postService.selectAllPost(pageRequest));
 	}
@@ -44,8 +45,9 @@ public class PostController {
 	public ResponseEntity<List<PostDto>> selectAllPostByPostCategory(
 		@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
 		@RequestParam(value = "size", required = false, defaultValue = "10") Integer size,
+		@RequestParam(value = "order") String order,
 		@PathVariable Long postCategoryId) {
-		PageRequest pageRequest = PageRequest.of(page, size, Sort.by("createdDate").descending());
+		PageRequest pageRequest = PageRequest.of(page, size, Sort.by(order).descending());
 
 		return ResponseEntity.ok().body(postService.selectAllPostByPostCategory(pageRequest, postCategoryId));
 	}
