@@ -35,7 +35,7 @@ public class PostController {
 	public ResponseEntity<List<PostDto>> selectAllPost(
 		@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
 		@RequestParam(value = "size", required = false, defaultValue = "10") Integer size,
-		@RequestParam(value = "order") String order) {
+		@RequestParam(value = "order", required = false, defaultValue = "createdDate") String order) {
 		PageRequest pageRequest = PageRequest.of(page, size, Sort.by(order).descending());
 
 		return ResponseEntity.ok().body(postService.selectAllPost(pageRequest));
@@ -69,5 +69,14 @@ public class PostController {
 		@Valid @RequestBody UploadPostDto postDto) {
 		return ResponseEntity.ok()
 			.body(postService.updatePost(postId, postDto));
+	}
+
+	@GetMapping("/my/post")
+	public ResponseEntity<List<PostDto>> selectAllPost(
+		@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+		@RequestParam(value = "size", required = false, defaultValue = "10") Integer size) {
+		PageRequest pageRequest = PageRequest.of(page, size, Sort.by("createdDate").descending());
+
+		return ResponseEntity.ok().body(postService.selectMyPost(pageRequest));
 	}
 }

@@ -128,5 +128,10 @@ public class PostService {
 		post.addViewCnt();
 	}
 
-
+	@Transactional(readOnly = true)
+	public List<PostDto> selectMyPost(PageRequest pageRequest) {
+		return postRepository.findAllByUser(pageRequest, getUser()).getContent().stream()
+			.map(post -> PostDto.from(post))
+			.collect(Collectors.toList());
+	}
 }
