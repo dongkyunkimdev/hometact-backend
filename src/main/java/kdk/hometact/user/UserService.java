@@ -4,6 +4,7 @@ import java.util.Collections;
 import kdk.hometact.error.ErrorCode;
 import kdk.hometact.security.SecurityUtil;
 import kdk.hometact.user.auth.Authority;
+import kdk.hometact.user.dto.UpdateNicknameDto;
 import kdk.hometact.user.dto.UserDto;
 import kdk.hometact.user.exception.EmailAlreadyUseException;
 import kdk.hometact.user.exception.NicknameAlreadyUseException;
@@ -22,8 +23,8 @@ public class UserService {
 
 	@Transactional
 	public UserDto signup(UserDto userDto) {
-		validDuplEmail(userDto);
-		validDuplNickname(userDto);
+		validDuplEmail(userDto.getEmail());
+		validDuplNickname(userDto.getNickname());
 
 		User user = toEntity(userDto);
 
@@ -39,14 +40,14 @@ public class UserService {
 			.build();
 	}
 
-	private void validDuplEmail(UserDto userDto) {
-		if (userRepository.existsByEmail(userDto.getEmail())) {
+	private void validDuplEmail(String email) {
+		if (userRepository.existsByEmail(email)) {
 			throw new EmailAlreadyUseException(ErrorCode.EMAIL_DUPLICATION.getMessage());
 		}
 	}
 
-	private void validDuplNickname(UserDto userDto) {
-		if (userRepository.existsByNickname(userDto.getNickname())) {
+	private void validDuplNickname(String nickname) {
+		if (userRepository.existsByNickname(nickname)) {
 			throw new NicknameAlreadyUseException(ErrorCode.EMAIL_DUPLICATION.getMessage());
 		}
 	}
@@ -66,4 +67,16 @@ public class UserService {
 		);
 	}
 
+	@Transactional
+	public void updateNickname(UpdateNicknameDto updateNicknameDto) {
+		validDuplNickname(updateNicknameDto.getNickname());
+		User user = getUser();
+		user.updateNickname(updateNicknameDto);
+	}
+
+	private User getUser() {
+		return SecurityUtil.getCurrentUsername()
+			.flatMap(userRepository::findOneWithAuthoritiesByEmail).orElseThrow(
+				() -> new UsernameNotFoundException(ErrorCode.USER_NOT_FOUND.getMessage()));
+	}
 }
