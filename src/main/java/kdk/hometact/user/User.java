@@ -20,6 +20,7 @@ import kdk.hometact.post.Post;
 import kdk.hometact.postlike.PostLike;
 import kdk.hometact.user.auth.Authority;
 import kdk.hometact.user.dto.UpdateNicknameDto;
+import kdk.hometact.user.dto.UpdatePasswordDto;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -77,5 +78,9 @@ public class User extends BaseTimeEntity {
 
 	public void updateNickname(UpdateNicknameDto updateNicknameDto) {
 		this.nickname = updateNicknameDto.getNickname();
+	}
+
+	public void updatePassword(UpdatePasswordDto updatePasswordDto) {
+		this.password = updatePasswordDto.getNewPassword();
 	}
 }

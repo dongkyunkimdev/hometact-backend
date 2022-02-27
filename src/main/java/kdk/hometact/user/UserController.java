@@ -7,6 +7,7 @@ import kdk.hometact.security.jwt.JwtService;
 import kdk.hometact.security.jwt.dto.TokenDto;
 import kdk.hometact.user.dto.LoginDto;
 import kdk.hometact.user.dto.UpdateNicknameDto;
+import kdk.hometact.user.dto.UpdatePasswordDto;
 import kdk.hometact.user.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -69,6 +70,13 @@ public class UserController {
 	public ResponseEntity updateUserNickname(
 		@Valid @RequestBody UpdateNicknameDto updateNicknameDto) {
 		userService.updateNickname(updateNicknameDto);
+		return ResponseEntity.ok().build();
+	}
+
+	@PatchMapping("/updatePassword")
+	public ResponseEntity updatePassword(
+		@Valid @RequestBody UpdatePasswordDto updateNicknameDto) {
+		userService.updatePassword(updateNicknameDto);
 		return ResponseEntity.ok().build();
 	}
 }

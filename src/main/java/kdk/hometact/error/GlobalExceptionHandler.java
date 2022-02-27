@@ -4,6 +4,7 @@ import kdk.hometact.error.exception.BusinessException;
 import kdk.hometact.error.exception.EntityNotFoundException;
 import kdk.hometact.postlike.exception.PostLikeAlreadyAddException;
 import kdk.hometact.security.jwt.exception.InvalidTokenException;
+import kdk.hometact.user.exception.BadPasswordException;
 import kdk.hometact.user.exception.EmailAlreadyUseException;
 import kdk.hometact.user.exception.NicknameAlreadyUseException;
 import lombok.extern.log4j.Log4j2;
@@ -26,6 +27,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 public class GlobalExceptionHandler {
 
 	// Common
+
 	/**
 	 * javax.validation.Valid or @Validated 으로 binding error 발생시 발생한다. HttpMessageConverter 에서 등록한
 	 * HttpMessageConverter binding 못할경우 발생 주로 @RequestBody, @RequestPart 어노테이션에서 발생
@@ -159,6 +161,15 @@ public class GlobalExceptionHandler {
 		final ErrorResponse response = ErrorResponse.of(ErrorCode.NICKNAME_DUPLICATION);
 		return new ResponseEntity<>(response,
 			HttpStatus.valueOf(ErrorCode.NICKNAME_DUPLICATION.getStatus()));
+	}
+
+	@ExceptionHandler(BadPasswordException.class)
+	protected ResponseEntity<ErrorResponse> handleBadPasswordException(
+		BadPasswordException e) {
+		log.error("handleBadPasswordException", e);
+		final ErrorResponse response = ErrorResponse.of(ErrorCode.BAD_PASSWORD);
+		return new ResponseEntity<>(response,
+			HttpStatus.valueOf(ErrorCode.BAD_PASSWORD.getStatus()));
 	}
 
 	// Authentication

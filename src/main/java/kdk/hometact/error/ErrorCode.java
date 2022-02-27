@@ -21,6 +21,7 @@ public enum ErrorCode {
 	EMAIL_DUPLICATION(400, "U001", "이미 사용중인 이메일입니다"),
 	USER_NOT_FOUND(404, "U002", "존재하지 않는 사용자입니다"),
 	NICKNAME_DUPLICATION(400, "U003", "이미 사용중인 닉네임입니다"),
+	BAD_PASSWORD(400, "U004", "비밀번호가 일치하지 않습니다"),
 
 	// Authentication
 	INVALID_TOKEN(401, "A001", "유효하지 않은 JWT 토큰입니다"),
