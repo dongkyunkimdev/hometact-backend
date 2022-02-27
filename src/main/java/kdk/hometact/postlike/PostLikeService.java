@@ -58,6 +58,7 @@ public class PostLikeService {
 		PostLike postLike = postLikeRepository.findByPostAndUser(post, user).orElseThrow(
 			() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND.getMessage())
 		);
+		post.getPostLikes().removeIf(postLike1 -> postLike1.equals(postLike));
 		postLikeRepository.delete(postLike);
 	}
 
