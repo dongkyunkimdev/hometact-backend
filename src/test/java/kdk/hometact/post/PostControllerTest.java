@@ -158,7 +158,7 @@ class PostControllerTest {
 		);
 
 		// when
-		String requestUrl = "/api/post";
+		String requestUrl = "/api/post/get";
 		ResultActions actions = getRequest(requestUrl);
 
 		// then
@@ -179,7 +179,7 @@ class PostControllerTest {
 		);
 
 		// when
-		String requestUrl = "/api/post/1";
+		String requestUrl = "/api/post/get/1";
 		ResultActions actions = getRequest(requestUrl);
 
 		// then
@@ -197,7 +197,7 @@ class PostControllerTest {
 		);
 
 		// when
-		String requestUrl = "/api/post/1";
+		String requestUrl = "/api/post/get/1";
 		AbstractThrowableAssert<?, ? extends Throwable> o = assertThatThrownBy(
 			() -> getRequest(requestUrl)
 		);
