@@ -1,7 +1,9 @@
 package kdk.hometact.post;
 
+import java.util.List;
 import java.util.Optional;
 import kdk.hometact.postcategory.PostCategory;
+import kdk.hometact.postlike.PostLike;
 import kdk.hometact.user.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,4 +25,7 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
 	@EntityGraph(attributePaths = {"user", "postCategory", "postLikes"})
 	Page<Post> findAllByUser(Pageable pageable, User user);
+
+	@EntityGraph(attributePaths = {"user", "postCategory", "postLikes"})
+	Page<Post> findAllByPostLikesIn(Pageable pageable, List<PostLike> postLikesList);
 }

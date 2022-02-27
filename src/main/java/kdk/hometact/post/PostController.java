@@ -31,7 +31,7 @@ public class PostController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(postService.uploadPost(postDto));
 	}
 
-	@GetMapping
+	@GetMapping("/get")
 	public ResponseEntity<List<PostDto>> selectAllPost(
 		@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
 		@RequestParam(value = "size", required = false, defaultValue = "10") Integer size,
@@ -41,7 +41,7 @@ public class PostController {
 		return ResponseEntity.ok().body(postService.selectAllPost(pageRequest));
 	}
 
-	@GetMapping("/category/{postCategoryId}")
+	@GetMapping("/get/category/{postCategoryId}")
 	public ResponseEntity<List<PostDto>> selectAllPostByPostCategory(
 		@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
 		@RequestParam(value = "size", required = false, defaultValue = "10") Integer size,
@@ -52,7 +52,7 @@ public class PostController {
 		return ResponseEntity.ok().body(postService.selectAllPostByPostCategory(pageRequest, postCategoryId));
 	}
 
-	@GetMapping("/{postId}")
+	@GetMapping("/get/{postId}")
 	public ResponseEntity<PostDto> selectPost(@PathVariable Long postId) {
 		postService.addViewCnt(postId);
 		return ResponseEntity.ok().body(postService.selectPost(postId));
@@ -72,11 +72,20 @@ public class PostController {
 	}
 
 	@GetMapping("/my/post")
-	public ResponseEntity<List<PostDto>> selectAllPost(
+	public ResponseEntity<List<PostDto>> selectAllMyPost(
 		@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
 		@RequestParam(value = "size", required = false, defaultValue = "10") Integer size) {
 		PageRequest pageRequest = PageRequest.of(page, size, Sort.by("createdDate").descending());
 
-		return ResponseEntity.ok().body(postService.selectMyPost(pageRequest));
+		return ResponseEntity.ok().body(postService.selectAllMyPost(pageRequest));
+	}
+
+	@GetMapping("/my/like")
+	public ResponseEntity<List<PostDto>> selectAllMyLikePost(
+		@RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+		@RequestParam(value = "size", required = false, defaultValue = "10") Integer size) {
+		PageRequest pageRequest = PageRequest.of(page, size, Sort.by("createdDate").descending());
+
+		return ResponseEntity.ok().body(postService.selectAllMyLikePost(pageRequest));
 	}
 }

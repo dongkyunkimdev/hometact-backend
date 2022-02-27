@@ -129,8 +129,16 @@ public class PostService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<PostDto> selectMyPost(PageRequest pageRequest) {
+	public List<PostDto> selectAllMyPost(PageRequest pageRequest) {
 		return postRepository.findAllByUser(pageRequest, getUser()).getContent().stream()
+			.map(post -> PostDto.from(post))
+			.collect(Collectors.toList());
+	}
+
+	@Transactional(readOnly = true)
+	public List<PostDto> selectAllMyLikePost(PageRequest pageRequest) {
+		return postRepository.findAllByPostLikesIn(pageRequest, getUser().getPostLikes())
+			.getContent().stream()
 			.map(post -> PostDto.from(post))
 			.collect(Collectors.toList());
 	}
