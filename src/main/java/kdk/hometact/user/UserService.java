@@ -97,4 +97,10 @@ public class UserService {
 			throw new BadPasswordException(ErrorCode.BAD_PASSWORD.getMessage());
 		}
 	}
+
+	@Transactional
+	public void withdrawal() {
+		User user = getUser();
+		userRepository.delete(user);
+	}
 }
