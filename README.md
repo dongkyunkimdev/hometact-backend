@@ -71,8 +71,5 @@
     ├── build.gradle
     └── README.md
 
-## Wiki
-[Wiki](https://github.com/dongkyunkimdev/hometact-backend/wiki)
-
 ## API 명세
 [API 명세서](https://app.swaggerhub.com/apis-docs/dongkyunkimdev/Hometact-API/1.0.0)
