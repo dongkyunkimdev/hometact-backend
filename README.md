@@ -1,6 +1,7 @@
 # [홈택트](https://www.hometact.ml/)[![Build Status](https://app.travis-ci.com/dongkyunkimdev/hometact-backend.svg?branch=master)](https://app.travis-ci.com/dongkyunkimdev/hometact-backend)
 ## 1. 개요
-비대면 모임 빌딩 플랫폼 '홈택트' Back-end
+비대면 모임 빌딩 플랫폼 '홈택트' Back-end  
+[Front-end 링크](https://github.com/dongkyunkimdev/hometact-frontend)
 
 ## 2. 비즈니스 요구사항
 - 이메일, 닉네임은 중복 불가능  
