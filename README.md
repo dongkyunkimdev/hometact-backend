@@ -27,7 +27,8 @@
 - Spring Security, Jwt 인증 구현
 - API 개발 및 테스트 코드 작성
 - 계층형 Exception 설계 및 Handler 구현
-- AWS, Travis CI를 통한 CI/CD 구성
+- AWS, Travis CI를 통한 CI/CD 구축
+- Swagger를 통한 API 문서 자동화
 
 ## 프로젝트 환경
 - IDE : IntelliJ
