@@ -33,6 +33,7 @@
 ## 프로젝트 환경
 - IDE : IntelliJ
 - Framework : Spring Boot 3.0.0
+- Language : Java 11
 - ORM : Spring Data JPA 2.6.3
 - CI/CD : Travis CI, AWS S3, CodeDeploy
 - Auth : JWT 0.11.2
