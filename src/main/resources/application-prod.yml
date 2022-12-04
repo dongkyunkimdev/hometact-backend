@@ -4,7 +4,7 @@ spring:
       on-profile: prod
 
   datasource:
-    url: jdbc:mariadb://hometact.cidyenzm1vnz.ap-northeast-2.rds.amazonaws.com:3306/hometact
+    url: jdbc:mariadb://aws-rds:3306/hometact
     driver-class-name: org.mariadb.jdbc.Driver
-    username: dongkyun
-    password: hometact
+    username: username
+    password: password
